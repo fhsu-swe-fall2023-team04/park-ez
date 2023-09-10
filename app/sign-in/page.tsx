@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function SignIn() {
 	return (
-		<section className='bg-gray-50 dark:bg-gray-900 h-screen  '>
+		<div className='bg-gray-50 dark:bg-gray-900 h-screen  '>
 			<div className='flex flex-col h-screen items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0'>
 				<a
 					href='#'
@@ -92,6 +92,6 @@ export default function SignIn() {
 					</div>
 				</div>
 			</div>
-		</section>
+		</div>
 	)
 }
