@@ -57,8 +57,6 @@ const adminSchema = new Schema({
 	lastName: String,
 })
 
-
-
 // Log schema
 const logSchema = new Schema({
 	activityDescription: String,
