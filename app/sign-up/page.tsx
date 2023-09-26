@@ -21,18 +21,49 @@ export default function SignUp() {
 							Create an account
 						</h1>
 						<form className='space-y-4 md:space-y-6' action='#'>
-							<SocialLogins />
+							<input
+								type='text'
+								name='name'
+								id='name'
+								className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+								placeholder='First Name'
+								required
+							/>
+
+							<input
+								type='text'
+								name='name'
+								id='name'
+								className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+								placeholder='Last Name'
+								required
+							/>
+
 							<div>
 								<input
-									type='text'
-									name='make'
-									id='make'
+									type='email'
+									name='email'
+									id='imal'
 									className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-									placeholder='Make'
+									placeholder='Email'
 									required
 								/>
 							</div>
-							<div className=' flex space-x-2 justify-between'>
+
+							<br className=' bg-slate-400 text-slate-400' />
+							<p>or</p>
+							<SocialLogins />
+							<div className='flex space-x-2 justify-between'>
+								<div>
+									<input
+										type='text'
+										name='make'
+										id='make'
+										className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+										placeholder='Make'
+										required
+									/>
+								</div>
 								<div>
 									<input
 										type='text'
@@ -43,6 +74,8 @@ export default function SignUp() {
 										required
 									/>
 								</div>
+							</div>
+							<div className=' flex space-x-2 justify-between'>
 								<div>
 									<input
 										type='text'
@@ -50,6 +83,16 @@ export default function SignUp() {
 										id='year'
 										className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
 										placeholder='Year'
+										required
+									/>
+								</div>
+								<div>
+									<input
+										type='text'
+										name='color'
+										id='color'
+										className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+										placeholder='Color'
 										required
 									/>
 								</div>
