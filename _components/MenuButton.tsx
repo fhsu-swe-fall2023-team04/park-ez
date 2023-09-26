@@ -21,9 +21,9 @@ export default function MenuButton() {
 					tabIndex={0}
 					className={`${
 						openMenu ? 'visible' : 'hidden'
-					} bg-slate-800 rounded py-2 space-y-2 px-4 absolute menu-sm dropdown-content mt-3 z-[1] shadow bg-base-100 rounded-box w-52`}
+					} [&>li]:p-4 bg-slate-800 rounded space-y-2 absolute menu-sm dropdown-content mt-3 z-[1] shadow bg-base-100 rounded-box w-52`}
 				>
-					<li className=' py-2 flex justify-between items-center'>
+					<li className=' py-2 flex justify-between items-center hover:bg-slate-400'>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
 							fill='none'
@@ -40,7 +40,7 @@ export default function MenuButton() {
 						</svg>
 						<p>Find Space</p>
 					</li>
-					<li className=' py-2 flex justify-between items-center'>
+					<li className=' py-2 flex justify-between items-center hover:bg-slate-400'>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
 							fill='none'
@@ -56,9 +56,9 @@ export default function MenuButton() {
 							/>
 						</svg>
 
-						<p>My Transactions</p>
+						<p>My Reservations</p>
 					</li>
-					<li className=' py-2 flex justify-between items-center'>
+					<li className=' py-2 flex justify-between items-center hover:bg-slate-400'>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
 							fill='none'
@@ -76,7 +76,7 @@ export default function MenuButton() {
 
 						<p>My Wallet</p>
 					</li>
-					<li className=' py-2 flex justify-between items-center'>
+					<li className=' py-2 flex justify-between items-center hover:bg-slate-400'>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
 							fill='none'

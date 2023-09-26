@@ -2,3 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
+::-webkit-calendar-picker-indicator {
+filter: invert(1);
+}
