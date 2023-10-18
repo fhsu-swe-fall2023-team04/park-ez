@@ -2,22 +2,27 @@ import { getLicensePlate } from '@/_serverActions/getLicensePlate'
 import React, { useState } from 'react'
 
 export default function SignIn() {
+	
 	const submitForm = async (fd: FormData) => {
 		'use server'
 		const phone = fd.get('phone')?.toString()
 		const files: File = fd.get('files') as File
 		const licensePlate = await getLicensePlate(files)
-		console.log("License Plate: ",licensePlate)
+		console.log("License Plate: ", licensePlate)
+	
 	}
+
+	const aWord = 'hello'
 
 	return (
 		<div className='bg-gray-50 dark:bg-gray-900 h-screen  '>
 			<div className='flex flex-col h-screen items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0'>
 				<a
 					href='#'
-					className='flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white'
+					className='flex items-center mb-6 text-3xl font-semibold text-gray-400 '
 				>
 					Welcome to ParkEZ
+					 {aWord}
 				</a>
 				<div className='w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700'>
 					<div className='p-6 space-y-4 md:space-y-6 sm:p-8'>
