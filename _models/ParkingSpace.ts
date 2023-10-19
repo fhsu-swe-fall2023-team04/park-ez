@@ -1,5 +1,8 @@
+// Team 2 to modify as needed
+
 import {Document, Model, model, models, Schema} from 'mongoose'
 import {VehicleDocument} from './Vehicle'
+import {CustomerDocument} from './Customer'
 
 enum statusEnum {
 	Available = 'Available',
@@ -11,6 +14,7 @@ export interface ParkingSpaceDocument extends Document {
     spaceNumber: string
     level: string
     status: statusEnum
+    customer: CustomerDocument['_id']
     vehicle: VehicleDocument['_id']
     rate: {
         ratePerHour: number,
@@ -25,6 +29,7 @@ const parkingSpaceSchema = new Schema<ParkingSpaceDocument>({
     spaceNumber: {type: String, required: true},
     level: {type: String, required: true},
     status: {type: String, required: true},
+    customer: {type: Schema.Types.ObjectId, ref: 'Customer'},
     vehicle: {type: Schema.Types.ObjectId, ref: 'Vehicle'},
     rate: {
         ratePerHour: {type: Number, required: true},

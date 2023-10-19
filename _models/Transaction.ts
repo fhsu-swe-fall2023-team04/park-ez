@@ -1,3 +1,6 @@
+// Team 3 to modify as needed
+
+
 import {Document, Model, model, models, Schema} from 'mongoose'
 import {CustomerDocument} from './Customer'
 
