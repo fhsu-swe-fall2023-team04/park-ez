@@ -9,7 +9,6 @@ export default function SignIn() {
 		const files: File = fd.get('files') as File
 		const licensePlate = await getLicensePlate(files)
 		console.log("License Plate: ", licensePlate)
-	
 	}
 
 	const aWord = 'hello'
@@ -17,6 +16,8 @@ export default function SignIn() {
 	return (
 		<div className='bg-gray-50 dark:bg-gray-900 h-screen  '>
 			<div className='flex flex-col h-screen items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0'>
+				
+				{/* title */}
 				<a
 					href='#'
 					className='flex items-center mb-6 text-3xl font-semibold text-gray-400 '
@@ -26,9 +27,11 @@ export default function SignIn() {
 				</a>
 				<div className='w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700'>
 					<div className='p-6 space-y-4 md:space-y-6 sm:p-8'>
+						{/* sign in to accout */}
 						<h1 className='text-xl font-bold text-center text-gray-900 md:text-2xl dark:text-white'>
 							Sign in to your account
 						</h1>
+						{/*  */}
 						<form className='space-y-4 md:space-y-6 w-full' action={submitForm}>
 							<div className=' flex items-center justify-between '>
 								<div className=' flex-1 mr-2'>

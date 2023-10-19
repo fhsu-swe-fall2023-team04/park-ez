@@ -1,9 +1,7 @@
 // Team 1 to modify as needed
 
-
 import {Document, Model, model, models, Schema} from 'mongoose'
 import {VehicleDocument} from './Vehicle'
-
 
 export interface CustomerDocument extends Document {
     firstName: string
@@ -12,7 +10,6 @@ export interface CustomerDocument extends Document {
     phone: string
     vehicles: [VehicleDocument['_id']]
     paymentMethod: string
-
 }
 
 const customerSchema = new Schema<CustomerDocument>({
@@ -22,7 +19,6 @@ const customerSchema = new Schema<CustomerDocument>({
     phone: {type: String, required: true, unique: true},
     vehicles: [{type: Schema.Types.ObjectId, ref: 'Vehicle'}],
     paymentMethod: {type: String, required: true}
-
 })
 
 const Customer = models?.Customer || model('Customer', customerSchema)
