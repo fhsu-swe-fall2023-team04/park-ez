@@ -4,12 +4,12 @@ import startDb from '@/_utils/startDb'
 import React, { useState } from 'react'
 
 export default async function SignIn() {
-	await startDb()
-	const customers = await Customer.find()
-	
+	const customers = await fetch(`${process.env.URL}/api/customers/`)
+		.then((res) => res.json())
+		.catch((error) => console.error(error))
+
 	console.log(customers)
-	
-	
+
 	const submitForm = async (fd: FormData) => {
 		'use server'
 		// const phone = fd.get('phone')?.toString()
@@ -23,14 +23,13 @@ export default async function SignIn() {
 	return (
 		<div className='bg-gray-50 dark:bg-gray-900 h-screen  '>
 			<div className='flex flex-col h-screen items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0'>
-				
 				{/* title */}
 				<a
 					href='#'
 					className='flex items-center mb-6 text-3xl font-semibold text-gray-400 '
 				>
 					Welcome to ParkEZ
-					 {aWord}
+					{aWord}
 				</a>
 				<div className='w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700'>
 					<div className='p-6 space-y-4 md:space-y-6 sm:p-8'>
@@ -41,6 +40,7 @@ export default async function SignIn() {
 						{/*  */}
 						<form className='space-y-4 md:space-y-6 w-full' action={submitForm}>
 							<div className=' flex items-center justify-between '>
+								{/* licenseplate */}
 								<div className=' flex-1 mr-2'>
 									<input
 										type='text'
@@ -80,8 +80,8 @@ export default async function SignIn() {
 									</label>
 								</div>
 							</div>
-							{/* phone */}
-								
+							{/* telphone */}
+							<div>
 								<input
 									type='tel'
 									name='phone'
@@ -90,7 +90,7 @@ export default async function SignIn() {
 									required
 								/>
 							</div>
-
+							{/* submite */}
 							<button
 								type='submit'
 								className='w-full text-white bg-primary-600 hover:bg-primary-700 border border-slate-300 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800'
