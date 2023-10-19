@@ -1,14 +1,21 @@
+import Customer from '@/_models/Customer'
 import { getLicensePlate } from '@/_serverActions/getLicensePlate'
+import startDb from '@/_utils/startDb'
 import React, { useState } from 'react'
 
-export default function SignIn() {
+export default async function SignIn() {
+	await startDb()
+	const customers = await Customer.find()
+	
+	console.log(customers)
+	
 	
 	const submitForm = async (fd: FormData) => {
 		'use server'
-		const phone = fd.get('phone')?.toString()
-		const files: File = fd.get('files') as File
-		const licensePlate = await getLicensePlate(files)
-		console.log("License Plate: ", licensePlate)
+		// const phone = fd.get('phone')?.toString()
+		// const files: File = fd.get('files') as File
+		// const licensePlate = await getLicensePlate(files)
+		// console.log("License Plate: ", licensePlate)
 	}
 
 	const aWord = 'hello'
@@ -42,6 +49,7 @@ export default function SignIn() {
 										className=' w-full bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
 									/>
 								</div>
+								{/* upload */}
 								<div>
 									<input
 										type='file'
@@ -72,7 +80,8 @@ export default function SignIn() {
 									</label>
 								</div>
 							</div>
-							<div>
+							{/* phone */}
+								
 								<input
 									type='tel'
 									name='phone'
