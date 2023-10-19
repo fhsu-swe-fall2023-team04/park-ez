@@ -8,3 +8,8 @@ export const GET = async (req:Request) => {
     return NextResponse.json(customers)
 }
 
+export const POST = async (req: Request) => {
+    const body = await req.json()
+    const customer = await Customer.create(...body)
+    return NextResponse.json(customer)
+}
