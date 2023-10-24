@@ -1,6 +1,5 @@
 // Team 3 to modify as needed
 
-
 import {Document, Model, model, models, Schema} from 'mongoose'
 import {CustomerDocument} from './Customer'
 
@@ -15,8 +14,6 @@ export interface TransactionDocument extends Document {
     customer: CustomerDocument['_id'],
     space: TransactionDocument['_id'],
     status: statusEnum,
-
-
 }
 
 const transactionSchema = new Schema<TransactionDocument>({
