@@ -17,7 +17,6 @@ export interface VehicleDocument extends Document {
 
 const vehicleSchema = new Schema<VehicleDocument>({
 	licensePlate: { type: String, required: true, unique:true},
-    vehicleType: {type: String, required: true},
     make: {type: String, required: true},
     model: {type: String, required: true},
     color: {type: String, required: true},

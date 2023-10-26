@@ -17,7 +17,7 @@ const customerSchema = new Schema<CustomerDocument>({
     lastName: {type: String, required: true},
     email: {type: String, required: true, unique: true},
     phone: {type: String, required: true, unique: true},
-    vehicles: [{type: Schema.Types.ObjectId, ref: 'Vehicle'}],
+    vehicles: [{type: Schema.Types.ObjectId, ref: 'Vehicle',default: []}, ],
     paymentMethod: {type: String, required: true}
 })
 
