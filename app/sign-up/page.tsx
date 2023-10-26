@@ -43,13 +43,13 @@ export default function SignUp() {
 		}
 
 		try {
-			const res = await fetch(`${process.env.URL}/api/customers`, {
+			await fetch(`${process.env.URL}/api/customers`, {
 				method: 'POST',
 				body: JSON.stringify({
 					customer: customer,
 					vehicle: vehicle
 				}),
-			})
+			}).then(()=> redirect('/sign-in'))
 		} catch (error) {
 			throw error
 		}
