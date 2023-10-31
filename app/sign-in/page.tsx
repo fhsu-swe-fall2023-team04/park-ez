@@ -11,7 +11,7 @@ export default async function SignIn() {
 	console.log(customers)
 
 	const submitForm = async (fd: FormData) => {
-		'use server'
+		//'use server'
 		// const phone = fd.get('phone')?.toString()
 		// const files: File = fd.get('files') as File
 		// const licensePlate = await getLicensePlate(files)
