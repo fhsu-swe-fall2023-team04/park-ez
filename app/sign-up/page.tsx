@@ -7,10 +7,28 @@ import React from 'react'
 import car from '../../_media/images/car-icon.png'
 import {redirect} from 'next/navigation'
 
+import { Stripe } from "stripe";
+
+import { initializeApp } from "firebase/app";
+import {
+	getAuth, signInWithPhoneNumber
+} from "firebase/auth";
+
+const firebaseApp = initializeApp ({
+	apiKey: "AIzaSyCVP596PCcJWqgxlqSiEJ6BMWMuMQViF7U",
+	authDomain: "parkez-csci441.firebaseapp.com",
+	projectId: "parkez-csci441",
+	storageBucket: "parkez-csci441.appspot.com",
+	messagingSenderId: "649523126690",
+	appId: "1:649523126690:web:8861eb379e30f50a1e52fb",
+	measurementId: "G-K958H805QD"
+  });
+
+const auth = getAuth(firebaseApp);
+
 export default function SignUp() {
 
 	const handleSubmit = async (fd: FormData) => {
-
 		'use server'
 		// customer
 		const firstName = fd.get('firstName')?.toString()
@@ -42,6 +60,19 @@ export default function SignUp() {
 			paymentMethod
 		}
 
+
+
+		const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+			apiVersion: "2023-10-16",
+		});
+		
+		const customerData: Stripe.CustomerCreateParams = {
+			name: customer.firstName + " " + customer.lastName,
+			email: customer.email,
+			phone: customer.phone
+		};
+
+		
 		try {
 			await fetch(`${process.env.URL}/api/customers`, {
 				method: 'POST',
@@ -49,11 +80,17 @@ export default function SignUp() {
 					customer: customer,
 					vehicle: vehicle
 				}),
-			}).then(()=> redirect('/sign-in'))
+			})
+			//.then(()=> redirect('/sign-in'))
+
+			//Create a custumer in Stripe
+			await stripe.customers.create(customerData);
+
+			// Redirect only after both operations have completed successfully
+  			redirect('/sign-in');
 		} catch (error) {
 			throw error
 		}
-
 	}
 	return (
 		<section className='bg-gray-50 dark:bg-gray-900'>
