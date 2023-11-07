@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import React, { useState } from 'react'
 
 export default function MenuButton() {
@@ -23,7 +24,11 @@ export default function MenuButton() {
 						openMenu ? 'visible' : 'hidden'
 					} [&>li]:p-4 bg-slate-800 rounded space-y-2 absolute menu-sm dropdown-content mt-3 z-[1] shadow bg-base-100 rounded-box w-52`}
 				>
-					<li className=' py-2 flex justify-between items-center hover:bg-slate-400'>
+					<Link href='/parking-space'>
+					<li
+						className=' py-2 flex justify-between items-center hover:bg-slate-400'
+						onClick={() => setOpenMenu(!openMenu)}
+					>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
 							fill='none'
@@ -39,8 +44,13 @@ export default function MenuButton() {
 							/>
 						</svg>
 						<p>Find Space</p>
-					</li>
-					<li className=' py-2 flex justify-between items-center hover:bg-slate-400'>
+					</li></Link>
+
+					<Link href='/user-menu/reservations'>
+					<li
+						className=' py-2 flex justify-between items-center hover:bg-slate-400'
+						onClick={() => setOpenMenu(!openMenu)}
+					>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
 							fill='none'
@@ -57,8 +67,13 @@ export default function MenuButton() {
 						</svg>
 
 						<p>My Reservations</p>
-					</li>
-					<li className=' py-2 flex justify-between items-center hover:bg-slate-400'>
+					</li></Link>
+
+					<Link href='/user-menu/wallet'>
+					<li
+						className=' py-2 flex justify-between items-center hover:bg-slate-400'
+						onClick={() => setOpenMenu(!openMenu)}
+					>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
 							fill='none'
@@ -75,8 +90,13 @@ export default function MenuButton() {
 						</svg>
 
 						<p>My Wallet</p>
-					</li>
-					<li className=' py-2 flex justify-between items-center hover:bg-slate-400'>
+					</li></Link>
+
+					<Link href='/user-menu/settings'>
+					<li
+						className=' py-2 flex justify-between items-center hover:bg-slate-400'
+						onClick={() => setOpenMenu(!openMenu)}
+					>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
 							fill='none'
@@ -98,7 +118,8 @@ export default function MenuButton() {
 						</svg>
 
 						<p>Profile Settings</p>
-					</li>
+					</li></Link>
+
 				</ul>
 			</div>
 		</div>

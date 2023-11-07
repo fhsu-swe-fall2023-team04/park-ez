@@ -1,32 +1,51 @@
+'use client'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import React, { ReactNode } from 'react'
 
 export default function Menu({ children }: { children: ReactNode }) {
+	const pathname = usePathname()
 	return (
 		<div className=' flex justify-between px-4'>
 			<div className=' py-8 w-full'>
 				<ul className=' space-y-4'>
-					<Link href=''>
+					<Link href='/parking-space'>
 						<li className='flex space-x-8'>
-							<div className='w-2 rounded bg-teal-500  '></div>
+							<div
+								className={`${
+									pathname === '/parking-space' ? '' : 'hidden'
+								} w-2 rounded bg-teal-500 my-2 `}
+							></div>
 							<h1 className=' text-2xl py-4'>Find Space</h1>
 						</li>
 					</Link>
-					<Link href=''>
+					<Link href='/user-menu/reservations'>
 						<li className='flex space-x-8'>
-							<div className='w-2 rounded '></div>
+							<div
+								className={`${
+									pathname === '/user-menu/reservations' ? '' : 'hidden'
+								} w-2 rounded bg-teal-500 my-2 `}
+							></div>
 							<h1 className=' text-2xl py-4'>My Reservations</h1>
 						</li>
 					</Link>
 					<Link href='/user-menu/wallet'>
 						<li className='flex space-x-8'>
-							<div className='w-2 rounded '></div>
+							<div
+								className={`${
+									pathname === '/user-menu/wallet' ? '' : 'hidden'
+								} w-2 rounded bg-teal-500 my-2 `}
+							></div>
 							<h1 className=' text-2xl py-4'>My Wallet</h1>
 						</li>
 					</Link>
-					<Link href=''>
+					<Link href='/user-menu/settings'>
 						<li className='flex space-x-8'>
-							<div className='w-2 rounded '></div>
+							<div
+								className={`${
+									pathname === '/user-menu/settings' ? '' : 'hidden'
+								} w-2 rounded bg-teal-500 my-2 `}
+							></div>
 							<h1 className=' text-2xl py-4'>Profile Settings</h1>
 						</li>
 					</Link>
