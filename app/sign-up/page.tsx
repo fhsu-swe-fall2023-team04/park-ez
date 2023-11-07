@@ -1,11 +1,15 @@
-
-
 import PaymentButton from '@/_components/PaymentButton'
 import SocialLogins from '@/_components/SocialLogins'
 import Image from 'next/image'
 import React from 'react'
 import car from '../../_media/images/car-icon.png'
 import {redirect} from 'next/navigation'
+import { Stripe } from "stripe";
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+	apiVersion: "2023-10-16",
+});
+
 
 export default function SignUp() {
 
@@ -42,6 +46,12 @@ export default function SignUp() {
 			paymentMethod
 		}
 
+		const customerData: Stripe.CustomerCreateParams = {
+			name: customer.firstName + " " + customer.lastName,
+			email: customer.email,
+			phone: customer.phone
+		};
+
 		try {
 			await fetch(`${process.env.URL}/api/customers`, {
 				method: 'POST',
@@ -49,7 +59,12 @@ export default function SignUp() {
 					customer: customer,
 					vehicle: vehicle
 				}),
-			}).then(()=> redirect('/sign-in'))
+			})
+
+			//Create a Stripe Customer
+			await stripe.customers.create(customerData);
+
+			redirect('/sign-in');
 		} catch (error) {
 			throw error
 		}
