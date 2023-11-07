@@ -2,6 +2,7 @@
 
 import {Document, Model, model, models, Schema} from 'mongoose'
 import {CustomerDocument} from './Customer'
+import {ReservationDocument} from './Reservation'
 
 enum statusEnum {
 	Unpaid = 'Unpaid',
@@ -12,14 +13,14 @@ enum statusEnum {
 export interface TransactionDocument extends Document {
     totalCost: number,
     customer: CustomerDocument['_id'],
-    space: TransactionDocument['_id'],
+    reservation: ReservationDocument['_id'],
     status: statusEnum,
 }
 
 const transactionSchema = new Schema<TransactionDocument>({
     totalCost: {type: Number, required: true},
     customer: {type: Schema.Types.ObjectId, ref: 'Customer'},
-    space: {type: Schema.Types.ObjectId, ref: 'ParkingSpace'},
+    reservation: {type: Schema.Types.ObjectId, ref: 'Reservation'},
     status: {type: String, required: true},
 
 })
