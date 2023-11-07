@@ -9,7 +9,7 @@ export interface VehicleDocument  {
     _id: ObjectId
     licensePlate: string
     vehicleType: string
-    make: string
+    make:string
     model: string
     color: string
     year: string
