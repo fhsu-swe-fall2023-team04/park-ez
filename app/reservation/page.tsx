@@ -11,7 +11,10 @@ export default async function Reservation() {
 
 	const handleSubmit = async (fd:FormData) => {
 		'use server'
-		console.log(fd.get('date')?.toString())
+		const datetime = fd.get('datetime')?.toString()
+		const parkingSpace = fd.get('space')?.toString()
+
+		console.log(datetime, parkingSpace)
 	}
 
 	return (
@@ -22,7 +25,7 @@ export default async function Reservation() {
 					<div className=' space-y-2'>
 						<input
 							type='datetime-local'
-							name='date'
+							name='datetime'
 							className='block w-full rounded-lg p-2 text-xl bg-slate-800 text-white 	'
 						/>
 					</div>
@@ -36,7 +39,7 @@ export default async function Reservation() {
 								key={space._id}
 								className='flex py-4 items-center justify-between  '
 							>
-								<input type="text" name={space._id} hidden />
+								<input type="text" value={space._id} name='space' hidden />
 								<div className='[&>*]:block'>
 									<big>{space.distance} ft away</big>
 									<small className=' text-slate-400'>
