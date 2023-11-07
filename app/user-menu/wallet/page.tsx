@@ -2,16 +2,17 @@ import React from 'react'
 import { Stripe } from 'stripe'
 import { redirect } from 'next/navigation'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-	apiVersion: '2023-10-16',
-})
+export default async function Wallet() {
+	
+	const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+		apiVersion: '2023-10-16',
+	})
 
-const paymentMethods = await stripe.customers.listPaymentMethods(
-	'cus_OvsQ7xyhnCsO8t',
-	{ type: 'card', limit: 1 }
-)
+	const paymentMethods = await stripe.customers.listPaymentMethods(
+		'cus_OvsQ7xyhnCsO8t',
+		{ type: 'card', limit: 1 }
+	)
 
-export default function Wallet() {
 	const handleTopUp = async (fd: FormData) => {
 		'use server'
 
@@ -80,4 +81,3 @@ export default function Wallet() {
 		</div>
 	)
 }
-
