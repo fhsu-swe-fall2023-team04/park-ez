@@ -19,10 +19,10 @@ export default function Header() {
 						/>
 					</li>
 				</Link>
-				<Link href='/parking-space'>
+				<Link href='/'>
 					<li>Home</li>
 				</Link>
-				<Link href='/parking-space'>
+				<Link href='/reservation'>
 					<li>Parking</li>
 				</Link>
 				<Link href='/about/about-us'>

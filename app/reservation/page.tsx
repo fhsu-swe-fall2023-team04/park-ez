@@ -1,12 +1,12 @@
 'use server'
 
-import ParkingSpaceMap from '@/_components/ParkingSpaceMap';
-import ParkingMap from '@/_models/ParkingMap';
-import startDb from '@/_utils/startDb';
+import ParkingSpaceMap from '@/_components/ParkingSpaceMap'
+import ParkingMap from '@/_models/ParkingMap'
+import startDb from '@/_utils/startDb'
 import axios from 'axios'
-import {ReactElement, JSXElementConstructor, ReactNode, ReactPortal, PromiseLikeOfReactNode} from 'react';
 
-export default async function ParkingSpace() {
+
+export default async function Reservation() {
 	const parkingSpaces = await axios.get(`${process.env.URL}/api/parking-spaces`)
 
 	return (
@@ -29,7 +29,10 @@ export default async function ParkingSpace() {
 				<p className=' text-2xl py-2'>Available parking spaces</p>
 				<ul className=' bg-slate-800 rounded-xl px-4 py-2 divide-y-2 divide-slate-400 overflow-scroll h-[65vh]'>
 					{parkingSpaces.data.map((space: any) => (
-						<li key={space._id} className='flex py-4 items-center justify-between  '>
+						<li
+							key={space._id}
+							className='flex py-4 items-center justify-between  '
+						>
 							<div className='[&>*]:block'>
 								<big>{space.distance} ft away</big>
 								<small className=' text-slate-400'>
