@@ -10,8 +10,13 @@ export default function Header() {
 			<ul className=' flex items-center justify-evenly bg-slate-800'>
 				<Link href='/'>
 					<li className=' flex items-center space-x-2'>
-						<Image className='mr-2' src={car} height={100} width={100} alt='logo' />
-                        
+						<Image
+							className='mr-2'
+							src={car}
+							height={100}
+							width={100}
+							alt='logo'
+						/>
 					</li>
 				</Link>
 				<Link href='/parking-space'>
@@ -23,11 +28,10 @@ export default function Header() {
 				<Link href='/about/about-us'>
 					<li>About Us</li>
 				</Link>
-				<Link href='/user-menu'>
-					<li>
-						<MenuButton />
-					</li>
-				</Link>
+
+				<li>
+					<MenuButton />
+				</li>
 			</ul>
 		</div>
 	)
