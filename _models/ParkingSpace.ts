@@ -15,7 +15,6 @@ export interface ParkingDocument extends Document {
     }
     entryTime: Date
     exitTime: Date
-
 }
 
 const parkingSchema = new Schema<ParkingDocument>({

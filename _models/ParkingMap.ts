@@ -8,15 +8,23 @@ enum statusEnum {
 	Occupied = 'Occupied',
 	Reserved = 'Reserved',
 }
+enum levelEnum {
+	A = 'A',
+	B = 'B',
+	C = 'C',
+}
+
 
 export interface ParkingMapDocument extends Document {
-    MapNumber: string
-    level: string
+    distance: number;
+    number: number
+    level: levelEnum
     status: statusEnum
 }
 
 const parkingMapSchema = new Schema<ParkingMapDocument>({
-    MapNumber: {type: String, required: true},
+    distance: {type: Number, required: true},
+    number: {type: Number, required: true},
     level: {type: String, required: true},
     status: {type: String, required: true},
 
