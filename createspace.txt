@@ -1,0 +1,31 @@
+const spaces: { distance: number; level: string; number: number , status: string}[] = []
+
+// Levels array
+const levels = ['A', 'B', 'C']
+
+let i = 1
+
+// Create 10 spaces for each level A, B, and C
+levels.forEach((level) => {
+	for (let number = 1; number <= 10; number++) {
+		spaces.push({
+			distance: number + (i*10),
+			level: level,
+			number: number,
+			status: 'Available'
+		})
+
+	}
+	i++
+})
+
+
+
+spaces.sort(
+	(a: { distance: number }, b: { distance: number }) => a.distance - b.distance
+)
+
+await startDb()
+spaces.forEach((space) => {
+    await ParkingMap.create(space)
+})
