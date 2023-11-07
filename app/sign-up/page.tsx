@@ -3,10 +3,17 @@ import SocialLogins from '@/_components/SocialLogins'
 import Image from 'next/image'
 import React from 'react'
 import car from '../../_media/images/car-icon.png'
-import {redirect} from 'next/navigation'
+import { redirect } from 'next/navigation'
+import { Stripe } from 'stripe'
 
+<<<<<<< HEAD
+=======
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+	apiVersion: '2023-10-16',
+})
+
+>>>>>>> main
 export default function SignUp() {
-
 	const handleSubmit = async (fd: FormData) => {
 		'use server'
 		// customer
@@ -28,7 +35,7 @@ export default function SignUp() {
 			make,
 			model,
 			color,
-			year
+			year,
 		}
 
 		const customer = {
@@ -36,17 +43,35 @@ export default function SignUp() {
 			lastName,
 			email,
 			phone,
-			paymentMethod
+			paymentMethod,
 		}
 
+<<<<<<< HEAD
+=======
+		const customerData: Stripe.CustomerCreateParams = {
+			name: customer.firstName + ' ' + customer.lastName,
+			email: customer.email,
+			phone: customer.phone,
+		}
+
+>>>>>>> main
 		try {
 			await fetch(`${process.env.URL}/api/customers`, {
 				method: 'POST',
 				body: JSON.stringify({
 					customer: customer,
-					vehicle: vehicle
+					vehicle: vehicle,
 				}),
+<<<<<<< HEAD
 			}).then(()=> redirect('/sign-in'))
+=======
+			})
+
+			//Create a Stripe Customer
+			await stripe.customers.create(customerData)
+
+			redirect('/sign-in')
+>>>>>>> main
 		} catch (error) {
 			throw error
 		}
@@ -207,9 +232,6 @@ export default function SignUp() {
 								</a>
 							</p>
 						</form>
-
-
-
 					</div>
 				</div>
 			</div>
