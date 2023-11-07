@@ -5,7 +5,7 @@ import {VehicleDocument} from './Vehicle'
 import {CustomerDocument} from './Customer'
 import {ParkingMapDocument} from './ParkingMap'
 
-export interface ParkingDocument extends Document {
+export interface ReservationDocument extends Document {
     parkingSpace: ParkingMapDocument['_id']
     customer: CustomerDocument['_id']
     vehicle: VehicleDocument['_id']
@@ -17,7 +17,7 @@ export interface ParkingDocument extends Document {
     exitTime: Date
 }
 
-const parkingSchema = new Schema<ParkingDocument>({
+const reservationSchema = new Schema<ReservationDocument>({
     parkingSpace:{type: Schema.Types.ObjectId, ref: 'ParkingMap', required: true},
     customer: {type: Schema.Types.ObjectId, ref: 'Customer', required: true},
     vehicle: {type: Schema.Types.ObjectId, ref: 'Vehicle', required: true},
@@ -30,5 +30,5 @@ const parkingSchema = new Schema<ParkingDocument>({
 
 })
 
-const Parking = models?.Parking || model('Parking', parkingSchema)
-export default Parking as Model<ParkingDocument>
+const Reservation = models?.Reservation || model('Reservation', reservationSchema)
+export default Reservation as Model<ReservationDocument>

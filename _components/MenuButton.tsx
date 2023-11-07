@@ -8,7 +8,7 @@ export default function MenuButton() {
 	const [openMenu, setOpenMenu] = useState(false)
 	return (
 		<div>
-			<div className='dropdown dropdown-end relative'>
+			<div className='dropdown dropdown-end relative shadow-2xl'>
 				<button onClick={() => setOpenMenu(!openMenu)}>
 					<Image
 						src='https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'
@@ -26,7 +26,7 @@ export default function MenuButton() {
 				>
 					<Link href='/parking-space'>
 					<li
-						className=' py-2 flex justify-between items-center hover:bg-slate-400'
+						className=' p-2 flex justify-between items-center hover:bg-slate-400'
 						onClick={() => setOpenMenu(!openMenu)}
 					>
 						<svg
@@ -48,7 +48,7 @@ export default function MenuButton() {
 
 					<Link href='/user-menu/reservations'>
 					<li
-						className=' py-2 flex justify-between items-center hover:bg-slate-400'
+						className=' p-2 flex justify-between items-center hover:bg-slate-400'
 						onClick={() => setOpenMenu(!openMenu)}
 					>
 
@@ -72,10 +72,9 @@ export default function MenuButton() {
 
 					<Link href='/user-menu/wallet'>
 					<li
-						className=' py-2 flex justify-between items-center hover:bg-slate-400'
+						className=' p-2 flex justify-between items-center hover:bg-slate-400'
 						onClick={() => setOpenMenu(!openMenu)}
 					>
-
 							<svg
 								xmlns='http://www.w3.org/2000/svg'
 								fill='none'
@@ -96,7 +95,7 @@ export default function MenuButton() {
 
 					<Link href='/user-menu/settings'>
 					<li
-						className=' py-2 flex justify-between items-center hover:bg-slate-400'
+						className=' p-2 flex justify-between items-center hover:bg-slate-400'
 						onClick={() => setOpenMenu(!openMenu)}
 					>
 	
