@@ -24,34 +24,34 @@ export default function MenuButton() {
 						openMenu ? 'visible' : 'hidden'
 					} [&>li]:p-4 bg-slate-800 rounded space-y-2 absolute menu-sm dropdown-content mt-3 z-[1] shadow bg-base-100 rounded-box w-52`}
 				>
-					<Link href='/parking-space'>
-					<li
-						className=' p-2 flex justify-between items-center hover:bg-slate-400'
-						onClick={() => setOpenMenu(!openMenu)}
-					>
-						<svg
-							xmlns='http://www.w3.org/2000/svg'
-							fill='none'
-							viewBox='0 0 24 24'
-							strokeWidth={1.5}
-							stroke='currentColor'
-							className='w-6 h-6'
+					<Link href='/reservation'>
+						<li
+							className=' p-2 flex justify-between items-center hover:bg-slate-400'
+							onClick={() => setOpenMenu(!openMenu)}
 						>
-							<path
-								strokeLinecap='round'
-								strokeLinejoin='round'
-								d='M7.5 3.75H6A2.25 2.25 0 003.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0120.25 6v1.5m0 9V18A2.25 2.25 0 0118 20.25h-1.5m-9 0H6A2.25 2.25 0 013.75 18v-1.5M15 12a3 3 0 11-6 0 3 3 0 016 0z'
-							/>
-						</svg>
-						<p>Find Space</p>
-					</li></Link>
+							<svg
+								xmlns='http://www.w3.org/2000/svg'
+								fill='none'
+								viewBox='0 0 24 24'
+								strokeWidth={1.5}
+								stroke='currentColor'
+								className='w-6 h-6'
+							>
+								<path
+									strokeLinecap='round'
+									strokeLinejoin='round'
+									d='M7.5 3.75H6A2.25 2.25 0 003.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0120.25 6v1.5m0 9V18A2.25 2.25 0 0118 20.25h-1.5m-9 0H6A2.25 2.25 0 013.75 18v-1.5M15 12a3 3 0 11-6 0 3 3 0 016 0z'
+								/>
+							</svg>
+							<p>Find Space</p>
+						</li>
+					</Link>
 
-					<Link href='/user-menu/reservations'>
-					<li
-						className=' p-2 flex justify-between items-center hover:bg-slate-400'
-						onClick={() => setOpenMenu(!openMenu)}
-					>
-
+					<Link href='/user-menu/my-reservations'>
+						<li
+							className=' p-2 flex justify-between items-center hover:bg-slate-400'
+							onClick={() => setOpenMenu(!openMenu)}
+						>
 							<svg
 								xmlns='http://www.w3.org/2000/svg'
 								fill='none'
@@ -67,14 +67,15 @@ export default function MenuButton() {
 								/>
 							</svg>
 
-						<p>My Reservations</p>
-					</li></Link>
+							<p>My Reservations</p>
+						</li>
+					</Link>
 
 					<Link href='/user-menu/wallet'>
-					<li
-						className=' p-2 flex justify-between items-center hover:bg-slate-400'
-						onClick={() => setOpenMenu(!openMenu)}
-					>
+						<li
+							className=' p-2 flex justify-between items-center hover:bg-slate-400'
+							onClick={() => setOpenMenu(!openMenu)}
+						>
 							<svg
 								xmlns='http://www.w3.org/2000/svg'
 								fill='none'
@@ -90,15 +91,15 @@ export default function MenuButton() {
 								/>
 							</svg>
 
-						<p>My Wallet</p>
-					</li></Link>
+							<p>My Wallet</p>
+						</li>
+					</Link>
 
 					<Link href='/user-menu/settings'>
-					<li
-						className=' p-2 flex justify-between items-center hover:bg-slate-400'
-						onClick={() => setOpenMenu(!openMenu)}
-					>
-	
+						<li
+							className=' p-2 flex justify-between items-center hover:bg-slate-400'
+							onClick={() => setOpenMenu(!openMenu)}
+						>
 							<svg
 								xmlns='http://www.w3.org/2000/svg'
 								fill='none'
@@ -119,9 +120,9 @@ export default function MenuButton() {
 								/>
 							</svg>
 
-						<p>Profile Settings</p>
-					</li></Link>
-
+							<p>Profile Settings</p>
+						</li>
+					</Link>
 				</ul>
 			</div>
 		</div>
