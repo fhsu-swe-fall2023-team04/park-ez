@@ -75,7 +75,6 @@ export default function MenuButton() {
 						className=' p-2 flex justify-between items-center hover:bg-slate-400'
 						onClick={() => setOpenMenu(!openMenu)}
 					>
-	
 							<svg
 								xmlns='http://www.w3.org/2000/svg'
 								fill='none'
@@ -99,7 +98,7 @@ export default function MenuButton() {
 						className=' p-2 flex justify-between items-center hover:bg-slate-400'
 						onClick={() => setOpenMenu(!openMenu)}
 					>
-		
+	
 							<svg
 								xmlns='http://www.w3.org/2000/svg'
 								fill='none'

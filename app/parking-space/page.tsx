@@ -45,7 +45,7 @@ export default function ParkingSpace() {
 				<p className=' text-2xl py-2'>Available parking spaces</p>
 				<ul className=' bg-slate-800 rounded-xl px-4 py-2 divide-y-2 divide-slate-400 overflow-scroll h-[65vh]'>
 					{spaces.map((space) => (
-						<li className='flex py-4 items-center justify-between  '>
+						<li key={space.level+space.number} className='flex py-4 items-center justify-between  '>
 							<div className='[&>*]:block'>
 								<big>{space.distance} ft away</big>
 								<small className=' text-slate-400'>
