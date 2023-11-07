@@ -3,17 +3,10 @@
 import {Document, Model, model, models, Schema} from 'mongoose'
 import {VehicleDocument} from './Vehicle'
 import {CustomerDocument} from './Customer'
+import {ParkingMapDocument} from './ParkingMap'
 
-enum statusEnum {
-	Available = 'Available',
-	Occupied = 'Occupied',
-	Reserved = 'Reserved',
-}
-
-export interface ParkingSpaceDocument extends Document {
-    spaceNumber: string
-    level: string
-    status: statusEnum
+export interface ParkingDocument extends Document {
+    parkingSpace: ParkingMapDocument['_id']
     customer: CustomerDocument['_id']
     vehicle: VehicleDocument['_id']
     rate: {
@@ -25,10 +18,8 @@ export interface ParkingSpaceDocument extends Document {
 
 }
 
-const parkingSpaceSchema = new Schema<ParkingSpaceDocument>({
-    spaceNumber: {type: String, required: true},
-    level: {type: String, required: true},
-    status: {type: String, required: true},
+const parkingSchema = new Schema<ParkingDocument>({
+    parkingSpace:{type: Schema.Types.ObjectId, ref: 'ParkingMap', required: true},
     customer: {type: Schema.Types.ObjectId, ref: 'Customer', required: true},
     vehicle: {type: Schema.Types.ObjectId, ref: 'Vehicle', required: true},
     rate: {
@@ -40,5 +31,5 @@ const parkingSpaceSchema = new Schema<ParkingSpaceDocument>({
 
 })
 
-const ParkingSpace = models?.ParkingSpace || model('ParkingSpace', parkingSpaceSchema)
-export default ParkingSpace as Model<ParkingSpaceDocument>
+const Parking = models?.Parking || model('Parking', parkingSchema)
+export default Parking as Model<ParkingDocument>

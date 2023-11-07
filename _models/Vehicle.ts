@@ -2,13 +2,14 @@
 
 
 
-import {Document, Model, model, models, Schema} from 'mongoose'
+import {Document, Model, model, models, ObjectId, Schema} from 'mongoose'
 
 
-export interface VehicleDocument extends Document {
+export interface VehicleDocument  {
+    _id: ObjectId
     licensePlate: string
     vehicleType: string
-    make: string
+    make:string
     model: string
     color: string
     year: string
