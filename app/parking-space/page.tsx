@@ -1,30 +1,14 @@
-import ParkingSpaceMap from '@/_components/ParkingSpaceMap'
+'use server'
 
-const spaces: { distance: number; level: string; number: number }[] = []
+import ParkingSpaceMap from '@/_components/ParkingSpaceMap';
+import ParkingMap from '@/_models/ParkingMap';
+import startDb from '@/_utils/startDb';
+import axios from 'axios'
+import {ReactElement, JSXElementConstructor, ReactNode, ReactPortal, PromiseLikeOfReactNode} from 'react';
 
-// Levels array
-const levels = ['A', 'B', 'C']
+export default async function ParkingSpace() {
+	const parkingSpaces = await axios.get(`${process.env.URL}/api/parking-spaces`)
 
-let i = 1
-
-// Create 10 spaces for each level A, B, and C
-levels.forEach((level) => {
-	for (let number = 1; number <= 10; number++) {
-		spaces.push({
-			distance: number * i,
-			level: level,
-			number: number,
-		})
-		
-	}
-	i++
-})
-
-spaces.sort(
-	(a: { distance: number }, b: { distance: number }) => a.distance - b.distance
-)
-
-export default function ParkingSpace() {
 	return (
 		<div className=' flex space-x-4 px-4 flex-wrap justify-center'>
 			<div className=' '>
@@ -44,8 +28,8 @@ export default function ParkingSpace() {
 				{' '}
 				<p className=' text-2xl py-2'>Available parking spaces</p>
 				<ul className=' bg-slate-800 rounded-xl px-4 py-2 divide-y-2 divide-slate-400 overflow-scroll h-[65vh]'>
-					{spaces.map((space) => (
-						<li key={space.level+space.number} className='flex py-4 items-center justify-between  '>
+					{parkingSpaces.data.map((space: any) => (
+						<li key={space._id} className='flex py-4 items-center justify-between  '>
 							<div className='[&>*]:block'>
 								<big>{space.distance} ft away</big>
 								<small className=' text-slate-400'>
