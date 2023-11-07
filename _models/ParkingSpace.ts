@@ -29,8 +29,8 @@ const parkingSpaceSchema = new Schema<ParkingSpaceDocument>({
     spaceNumber: {type: String, required: true},
     level: {type: String, required: true},
     status: {type: String, required: true},
-    customer: {type: Schema.Types.ObjectId, ref: 'Customer'},
-    vehicle: {type: Schema.Types.ObjectId, ref: 'Vehicle'},
+    customer: {type: Schema.Types.ObjectId, ref: 'Customer', required: true},
+    vehicle: {type: Schema.Types.ObjectId, ref: 'Vehicle', required: true},
     rate: {
         ratePerHour: {type: Number, required: true},
         ratePerDay: {type: Number, required: true},
