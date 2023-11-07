@@ -1,33 +1,16 @@
-
-
 import PaymentButton from '@/_components/PaymentButton'
 import SocialLogins from '@/_components/SocialLogins'
 import Image from 'next/image'
 import React from 'react'
 import car from '../../_media/images/car-icon.png'
-import {redirect} from 'next/navigation'
+import { redirect } from 'next/navigation'
+import { Stripe } from 'stripe'
 
-import { Stripe } from "stripe";
-
-import { initializeApp } from "firebase/app";
-import {
-	getAuth, signInWithPhoneNumber
-} from "firebase/auth";
-
-const firebaseApp = initializeApp ({
-	apiKey: "AIzaSyCVP596PCcJWqgxlqSiEJ6BMWMuMQViF7U",
-	authDomain: "parkez-csci441.firebaseapp.com",
-	projectId: "parkez-csci441",
-	storageBucket: "parkez-csci441.appspot.com",
-	messagingSenderId: "649523126690",
-	appId: "1:649523126690:web:8861eb379e30f50a1e52fb",
-	measurementId: "G-K958H805QD"
-  });
-
-const auth = getAuth(firebaseApp);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+	apiVersion: '2023-10-16',
+})
 
 export default function SignUp() {
-
 	const handleSubmit = async (fd: FormData) => {
 		'use server'
 		// customer
@@ -49,7 +32,7 @@ export default function SignUp() {
 			make,
 			model,
 			color,
-			year
+			year,
 		}
 
 		const customer = {
@@ -57,37 +40,33 @@ export default function SignUp() {
 			lastName,
 			email,
 			phone,
-			paymentMethod
+			paymentMethod,
 		}
 
 
-
-		const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-			apiVersion: "2023-10-16",
-		});
-		
 		const customerData: Stripe.CustomerCreateParams = {
-			name: customer.firstName + " " + customer.lastName,
+			name: customer.firstName + ' ' + customer.lastName,
 			email: customer.email,
-			phone: customer.phone
-		};
+			phone: customer.phone,
+		}
 
-		
 		try {
 			await fetch(`${process.env.URL}/api/customers`, {
 				method: 'POST',
 				body: JSON.stringify({
 					customer: customer,
-					vehicle: vehicle
+					vehicle: vehicle,
 				}),
-			})
-			//.then(()=> redirect('/sign-in'))
 
-			//Create a custumer in Stripe
-			await stripe.customers.create(customerData);
+			}).then(()=> redirect('/sign-in'))
 
-			// Redirect only after both operations have completed successfully
-  			redirect('/sign-in');
+			
+
+			//Create a Stripe Customer
+			await stripe.customers.create(customerData)
+
+			redirect('/sign-in')
+
 		} catch (error) {
 			throw error
 		}
@@ -248,9 +227,6 @@ export default function SignUp() {
 								</a>
 							</p>
 						</form>
-
-
-
 					</div>
 				</div>
 			</div>

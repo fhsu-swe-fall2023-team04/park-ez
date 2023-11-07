@@ -1,29 +1,38 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import { ReactNode } from 'react'
-import '../_styles/globals.css'
-import Header from '@/_components/Header'
+import Link from 'next/link'
+import React, { ReactNode } from 'react'
 
-const inter = Inter({ subsets: ['latin'] })
-
-export const metadata: Metadata = {
-	title: 'ParkEZ',
-	description:
-		'Introducing ParkEZ, the go-to app for effortlessly conquering the urban parking puzzle. No more circling the block endlessly or facing the anxiety of finding parking in busy city centers. With ParkEZ, your parking hassles become a thing of the past.',
-}
-
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default function Menu({ children }: { children: ReactNode }) {
 	return (
-		<html className='n ' lang='en'>
-
-			<body
-				className={`${inter.className} bg-slate-900 text-white h-full w-screen`}
-			>
-				<nav>
-					<Header />
-				</nav>
-				{children}
-			</body>
-		</html>
+		<div className=' flex justify-between px-4'>
+			<div className=' py-8 w-full'>
+				<ul className=' space-y-4'>
+					<Link href=''>
+						<li className='flex space-x-8'>
+							<div className='w-2 rounded bg-teal-500  '></div>
+							<h1 className=' text-2xl py-4'>Find Space</h1>
+						</li>
+					</Link>
+					<Link href=''>
+						<li className='flex space-x-8'>
+							<div className='w-2 rounded '></div>
+							<h1 className=' text-2xl py-4'>My Reservations</h1>
+						</li>
+					</Link>
+					<Link href='/user-menu/wallet'>
+						<li className='flex space-x-8'>
+							<div className='w-2 rounded '></div>
+							<h1 className=' text-2xl py-4'>My Wallet</h1>
+						</li>
+					</Link>
+					<Link href=''>
+						<li className='flex space-x-8'>
+							<div className='w-2 rounded '></div>
+							<h1 className=' text-2xl py-4'>Profile Settings</h1>
+						</li>
+					</Link>
+				</ul>
+			</div>
+			<div className=' w-[200vw]'>{children}</div>
+		</div>
 	)
 }

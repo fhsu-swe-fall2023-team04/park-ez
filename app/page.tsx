@@ -1,7 +1,3 @@
-import ParkingAvail from '@/_components/ParkingAvail'
-import ParkingSpaceMap from '@/_components/ParkingSpaceMap'
-import Payment from '@/_components/Payment'
-import { redirect } from 'next/navigation'
 
 export default async function Home() {
 	return (

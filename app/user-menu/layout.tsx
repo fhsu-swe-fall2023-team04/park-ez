@@ -10,7 +10,7 @@ export default function Menu({ children }: { children: ReactNode }) {
 		<div className=' flex justify-between px-4'>
 			<div className=' py-8 w-full'>
 				<ul className=' space-y-4'>
-					<Link href='/parking-space'>
+					<Link href=''>
 						<li className='flex space-x-8'>
 							<div
 								className={`${
@@ -20,7 +20,7 @@ export default function Menu({ children }: { children: ReactNode }) {
 							<h1 className=' text-2xl py-4'>Find Space</h1>
 						</li>
 					</Link>
-					<Link href='/user-menu/my-reservations'>
+					<Link href=''>
 						<li className='flex space-x-8'>
 							<div
 								className={`${
@@ -40,7 +40,7 @@ export default function Menu({ children }: { children: ReactNode }) {
 							<h1 className=' text-2xl py-4'>My Wallet</h1>
 						</li>
 					</Link>
-					<Link href='/user-menu/settings'>
+					<Link href=''>
 						<li className='flex space-x-8'>
 							<div
 								className={`${
