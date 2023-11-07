@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 import React from 'react'
 import { Stripe } from 'stripe'
 import { redirect } from 'next/navigation'
@@ -82,4 +80,4 @@ export default function Wallet() {
 		</div>
 	)
 }
->>>>>>> main
+

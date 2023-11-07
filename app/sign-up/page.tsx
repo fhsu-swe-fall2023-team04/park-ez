@@ -6,13 +6,10 @@ import car from '../../_media/images/car-icon.png'
 import { redirect } from 'next/navigation'
 import { Stripe } from 'stripe'
 
-<<<<<<< HEAD
-=======
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 	apiVersion: '2023-10-16',
 })
 
->>>>>>> main
 export default function SignUp() {
 	const handleSubmit = async (fd: FormData) => {
 		'use server'
@@ -46,15 +43,13 @@ export default function SignUp() {
 			paymentMethod,
 		}
 
-<<<<<<< HEAD
-=======
+
 		const customerData: Stripe.CustomerCreateParams = {
 			name: customer.firstName + ' ' + customer.lastName,
 			email: customer.email,
 			phone: customer.phone,
 		}
 
->>>>>>> main
 		try {
 			await fetch(`${process.env.URL}/api/customers`, {
 				method: 'POST',
@@ -62,16 +57,16 @@ export default function SignUp() {
 					customer: customer,
 					vehicle: vehicle,
 				}),
-<<<<<<< HEAD
+
 			}).then(()=> redirect('/sign-in'))
-=======
-			})
+
+			
 
 			//Create a Stripe Customer
 			await stripe.customers.create(customerData)
 
 			redirect('/sign-in')
->>>>>>> main
+
 		} catch (error) {
 			throw error
 		}
