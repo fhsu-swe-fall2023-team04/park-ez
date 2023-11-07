@@ -1,4 +1,4 @@
-'use server'
+
 
 import ParkingSpaceMap from '@/_components/ParkingSpaceMap'
 import ParkingMap from '@/_models/ParkingMap'
