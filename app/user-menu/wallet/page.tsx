@@ -1,17 +1,20 @@
+
+
 import React from 'react'
 import { Stripe } from 'stripe'
 import { redirect } from 'next/navigation'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-	apiVersion: '2023-10-16',
-})
+export default async function Wallet() {
 
-const paymentMethods = await stripe.customers.listPaymentMethods(
-	'cus_OvsQ7xyhnCsO8t',
-	{ type: 'card', limit: 1 }
-)
+	const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+		apiVersion: '2023-10-16',
+	})
 
-export default function Wallet() {
+	const paymentMethods = await stripe.customers.listPaymentMethods(
+		'cus_OvsQ7xyhnCsO8t',
+		{ type: 'card', limit: 1 }
+	)
+
 	const handleTopUp = async (fd: FormData) => {
 		'use server'
 
@@ -69,7 +72,7 @@ export default function Wallet() {
 		<div className='px-4 pt-8 leading-8 [&>h1]:text-2xl [&>h1]:py-4 [&>h1]:font-bold '>
 			<h1>My wallet</h1>
 
-			<form action={setUpPaymentMethod}>
+			<form action={setUpPaymentMethod} >
 				<p>Selected Card: *{paymentMethods.data[0].card?.exp_year}</p>
 				<button type='submit'>Set-Up Payment Method</button>
 			</form>
@@ -80,4 +83,3 @@ export default function Wallet() {
 		</div>
 	)
 }
-

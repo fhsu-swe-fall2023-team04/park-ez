@@ -1,24 +1,21 @@
-import Customer from '@/_models/Customer'
-import { getLicensePlate } from '@/_serverActions/getLicensePlate'
-import startDb from '@/_utils/startDb'
-import React, { useState } from 'react'
+'use server'
+
 
 export default async function SignIn() {
 	const customers = await fetch(`${process.env.URL}/api/customers/`)
 		.then((res) => res.json())
 		.catch((error) => console.error(error))
 
-	console.log(customers)
 
-	const submitForm = async (fd: FormData) => {
-		//'use server'
-		// const phone = fd.get('phone')?.toString()
-		// const files: File = fd.get('files') as File
-		// const licensePlate = await getLicensePlate(files)
-		// console.log("License Plate: ", licensePlate)
-	}
+	// const submitForm = async (fd: FormData) => {
+	// 	'use server'
+	// 	// const phone = fd.get('phone')?.toString()
+	// 	// const files: File = fd.get('files') as File
+	// 	// const licensePlate = await getLicensePlate(files)
+	// 	// console.log("License Plate: ", licensePlate)
+	// }
 
-	const aWord = 'hello'
+
 
 	return (
 		<div className='bg-gray-50 dark:bg-gray-900 h-screen  '>
@@ -29,7 +26,7 @@ export default async function SignIn() {
 					className='flex items-center mb-6 text-3xl font-semibold text-gray-400 '
 				>
 					Welcome to ParkEZ
-					{aWord}
+
 				</a>
 				<div className='w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700'>
 					<div className='p-6 space-y-4 md:space-y-6 sm:p-8'>
@@ -38,7 +35,7 @@ export default async function SignIn() {
 							Sign in to your account
 						</h1>
 						{/*  */}
-						<form className='space-y-4 md:space-y-6 w-full' action={submitForm}>
+						<form className='space-y-4 md:space-y-6 w-full' >
 							<div className=' flex items-center justify-between '>
 								{/* licenseplate */}
 								<div className=' flex-1 mr-2'>
