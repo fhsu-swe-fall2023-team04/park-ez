@@ -4,6 +4,7 @@ import GoogleProvider from 'next-auth/providers/google'
 import EmailProvider from "next-auth/providers/email";
 import startDb from '@/_utils/startDb';
 import Customer from '@/_models/Customer';
+import {ObjectId} from 'mongoose';
 
 
 
@@ -40,12 +41,7 @@ export const authOptions: NextAuthOptions = {
         // })
 	],
 	callbacks: {
-		 async signIn({ account, profile }) {
-			console.log(account,profile)
 
-      
-      return true // Do different verification for other providers that don't have `email_verified`
-    },
 		async jwt({ token, user }) {
 			if (user) {
 				token.id = user.id
@@ -59,11 +55,13 @@ export const authOptions: NextAuthOptions = {
 				'email': session.user?.email
 			})
 
-			if (sessionUser) {
+			if (session?.user && sessionUser) {
 				session.user._id = sessionUser?._id
-				session.user.phone = sessionUser.phone
-				session.user.vehicles = sessionUser.vehicles
-				session.user.paymentMethod = sessionUser.paymentMethod
+				session.user.phone = sessionUser?.phone as string
+				session.user.vehicles = sessionUser?.vehicles as [ObjectId]
+				session.user.reservations = sessionUser?.reservations as [ObjectId]
+				session.user.transactions = sessionUser?.transactions as [ObjectId]
+				session.user.paymentMethod = sessionUser?.paymentMethod as string
 
 			}
 			return session

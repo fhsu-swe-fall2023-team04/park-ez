@@ -2,23 +2,29 @@ import Image from 'next/image'
 import { redirect } from 'next/navigation'
 import { Stripe } from 'stripe'
 import car from '../../_media/images/car-icon.png'
-import {getLicensePlate} from '@/_serverActions/getLicensePlate'
-import {getServerSession} from 'next-auth'
-import {authOptions} from '../api/auth/[...nextauth]/options'
+import { getLicensePlate } from '@/_serverActions/getLicensePlate'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '../api/auth/[...nextauth]/options'
 
 export default async function SignUp() {
-'use server'
+	'use server'
+
 	const session = await getServerSession(authOptions)
 	const user = session?.user
+	console.log(user, 'userrrj')
 
-	const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-		apiVersion: '2023-10-16',
-	})
+	if (user?.phone !== undefined) {
+		redirect('/')
+	}
 
 	const handleSubmit = async (fd: FormData) => {
 		'use server'
+		const session = await getServerSession(authOptions)
+		const user = session?.user
 
-		const files: File = fd.get('files') as File
+		const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+			apiVersion: '2023-10-16',
+		})
 
 		// customer
 		const firstName = fd.get('firstName')?.toString()
@@ -26,9 +32,11 @@ export default async function SignUp() {
 		const email = fd.get('email')?.toString()
 		const phone = fd.get('phone')?.toString()
 		const paymentMethod = fd.get('payment')?.toString()
-
+		const image = user?.image as string
 		// vehicles
-		const licensePlate = await getLicensePlate(files)
+		const files: File = fd.get('files') as File
+		const licensePlate =
+			(await getLicensePlate(files)) || fd.get('licensePlate')?.toString()
 		const make = fd.get('make')?.toString()
 		const model = fd.get('model')?.toString()
 		const color = fd.get('color')?.toString()
@@ -46,6 +54,7 @@ export default async function SignUp() {
 			firstName,
 			lastName,
 			email,
+			image,
 			phone,
 			paymentMethod,
 		}
@@ -63,7 +72,7 @@ export default async function SignUp() {
 					customer: customer,
 					vehicle: vehicle,
 				}),
-			}).then(() => redirect('/sign-in'))
+			})
 
 			//Create a Stripe Customer
 			await stripe.customers.create(customerData)
@@ -95,7 +104,7 @@ export default async function SignUp() {
 							<input
 								type='text'
 								name='firstName'
-								value={user.name.split(' ')[0]}
+								value={user?.name?.split(' ')[0]}
 								className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
 								placeholder='First Name'
 								required
@@ -105,7 +114,7 @@ export default async function SignUp() {
 							<input
 								type='text'
 								name='lastName'
-								value={user.name.split(' ')[1]}
+								value={user?.name?.split(' ')[1]}
 								className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
 								placeholder='Last Name'
 								required
@@ -116,7 +125,7 @@ export default async function SignUp() {
 								<input
 									type='email'
 									name='email'
-									value={user.email}
+									value={user?.email as string}
 									className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
 									placeholder='Email'
 									required

@@ -15,7 +15,7 @@ export default function MenuButton() {
 				<button onClick={() => setOpenMenu(!openMenu)}>
 					<Image
 						src={
-							session?.user.image ||
+							session?.user.image as string ||
 							'https://axiumradonmitigations.com/wp-content/uploads/2015/01/icon-user-default.png'
 						}
 						width={60}
@@ -133,7 +133,7 @@ export default function MenuButton() {
 						<li
 							className=' p-2 flex justify-between items-center hover:bg-slate-400'
 							onClick={() => {
-								signOut()
+								signOut(),
 								redirect('/sign-in')
 							}}
 						>

@@ -2,16 +2,39 @@ import ParkingSpaceMap from '@/_components/ParkingSpaceMap'
 import ParkingMap from '@/_models/ParkingMap'
 import startDb from '@/_utils/startDb'
 import axios from 'axios'
+import { getServerSession } from 'next-auth'
+import { authOptions } from '../api/auth/[...nextauth]/options'
 
 export default async function Reservation() {
 	const parkingSpaces = await axios.get(`${process.env.URL}/api/parking-spaces`)
+	const session = await getServerSession(authOptions)
+	const user = session?.user
 
 	const handleSubmit = async (fd: FormData) => {
 		'use server'
-		const datetime = fd.get('datetime')?.toString()
+		const entryTime = fd.get('datetime')?.toString()
 		const parkingSpace = fd.get('space')?.toString()
+		const customer = user?._id
+		const vehicle = user?.vehicles[0]
+		const rate = {
+			ratePerHour: 5,
+			ratePerDay: 20,
+		}
+		const reservation = {
+			parkingSpace,
+			customer,
+			vehicle,
+			rate,
+			entryTime
+		}
 
-		console.log(datetime, parkingSpace)
+
+		await fetch(`${process.env.URL}/api/reservations`, {
+			method: 'POST',
+			body: JSON.stringify(reservation),
+		}).then((res) => {
+			console.log(res.json())
+		}).catch(err => {console.error(err)})
 	}
 
 	return (
