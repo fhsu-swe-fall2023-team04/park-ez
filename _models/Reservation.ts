@@ -1,6 +1,6 @@
 // Team 2 to modify as needed
 
-import {Document, Model, model, models, Schema} from 'mongoose'
+import mongoose, {Document, Model, model, models, Schema} from 'mongoose'
 import {VehicleDocument} from './Vehicle'
 import {CustomerDocument} from './Customer'
 import {ParkingMapDocument} from './ParkingMap'
@@ -33,5 +33,5 @@ const reservationSchema = new Schema<ReservationDocument>({
 },  { timestamps: true }
 )
 
-const Reservation = models?.Reservation || model('Reservation', reservationSchema)
+const Reservation = mongoose.models?.Reservation || mongoose.model('Reservation', reservationSchema)
 export default Reservation as Model<ReservationDocument>

@@ -13,7 +13,7 @@ export const GET = async (
 	
 	await startDb()
 	const customer = await Customer.findById(params.id).populate({
-    path: 'reservations',
+		path: 'reservations',
    populate: [
       { path: 'parkingSpace' },  // Assuming the ref is correctly set in your Reservation schema
       { path: 'customer' },      // Assuming the ref is correctly set in your Reservation schema

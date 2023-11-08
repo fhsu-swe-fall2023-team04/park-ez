@@ -1,11 +1,12 @@
+
 import ParkingSpaceMap from '@/_components/ParkingSpaceMap'
-import axios from 'axios'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]/options'
 import { redirect } from 'next/navigation'
 import {revalidateTag} from 'next/cache'
 
 export default async function Reservation() {
+
 	const session = await getServerSession(authOptions)
 
 	const userReservations = await fetch(
@@ -14,6 +15,7 @@ export default async function Reservation() {
 		.then((res) => res.json())
 		.catch((err) => console.error(err))
 	
+	console.log(userReservations)
 
 	const inProgressReservation = userReservations?.find(
 		(reservation: { inProgress: boolean }) => {
@@ -21,10 +23,10 @@ export default async function Reservation() {
 		}
 	)
 
-
 	if (inProgressReservation) {
 		redirect(`/reservation/${inProgressReservation._id}`)
 	}
+
 
 	const parkingSpaces = await fetch(`${process.env.URL}/api/parking-spaces`, {
 		cache: 'no-cache',

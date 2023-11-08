@@ -1,5 +1,4 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/options'
-import axios from 'axios'
 import { getServerSession } from 'next-auth'
 import React from 'react'
 
@@ -10,19 +9,18 @@ export default async function Reservations() {
 		`${process.env.URL}/api/customers/reservations/${user?._id}`
 	)
 		.then((res) => res.json())
-    .catch((err) => console.error(err))
+		.catch((err) => console.error(err))
 	return (
 		<div>
-      Reservations
+			Reservations
 			{reservations?.map((item: any) => (
 				<div key={item._id}>
-          <p>{item._id}</p>
-          <p>{item.customer}</p>
-          <p>{item.vehicle}</p>
-          <p>{item.rate.ratePerHour}</p>
-          <p>{item.rate.ratePerDay}</p>
-          <p>{item.entryTime}</p>
-          <p>{item.exitTime}</p>{' '}
+					<p>firstName: {item.customer.firstName}</p>
+					<p>model: {item.vehicle._model}</p>
+					<p>per Hour: {item.rate.ratePerHour}</p>
+					<p>per Day: {item.rate.ratePerDay}</p>
+					<p>entryTIme: {item.entryTime}</p>
+					<p>exitTime: {item.exitTime}</p>{' '}
 				</div>
 			))}
 		</div>

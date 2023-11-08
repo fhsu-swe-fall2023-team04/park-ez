@@ -1,36 +1,39 @@
 'use client'
-
-import dayjs from 'dayjs'
-import relativeTime from 'dayjs/plugin/relativeTime'
-import React, { useEffect, useState } from 'react'
-
-
-dayjs.extend(relativeTime)
+import React, { useEffect, useState } from 'react';
 
 interface TimeElapsedCounterProps {
-	targetDate: string // ISO 8601 format date string
+  targetDate: string; // ISO 8601 format date string
 }
 
-const TimeElapsedCounter: React.FC<TimeElapsedCounterProps> = ({
-	targetDate,
-}) => {
-	const [timeElapsed, setTimeElapsed] = useState<string>('')
+const TimeElapsedCounter: React.FC<TimeElapsedCounterProps> = ({ targetDate }) => {
+  const [timeElapsed, setTimeElapsed] = useState<string>('');
 
-	useEffect(() => {
-		const intervalId = setInterval(() => {
-			const timeElapsedSinceTargetDate = dayjs(targetDate).fromNow()
-			setTimeElapsed(timeElapsedSinceTargetDate)
-		}, 1000)
+  useEffect(() => {
+    const updateElapsedTime = () => {
+      const now = new Date();
+      const targetDateTime = new Date(targetDate);
+      const elapsed = now.getTime() - targetDateTime.getTime(); // Use getTime() for TypeScript
 
-		// Clear the interval when the component is unmounted
-		return () => clearInterval(intervalId)
-	}, [targetDate]) // Dependency array, re-run the effect if targetDate changes
+      const seconds = Math.floor((elapsed / 1000) % 60);
+      const minutes = Math.floor((elapsed / 1000 / 60) % 60);
+      const hours = Math.floor((elapsed / (1000 * 60 * 60)) % 24);
+      const days = Math.floor(elapsed / (1000 * 60 * 60 * 24));
 
-	return (
-		<div>
-			<p>Time Elapsed: {timeElapsed}</p>
-		</div>
-	)
-}
+      setTimeElapsed(`${days}d ${hours}h ${minutes}m ${seconds}s`);
+    };
 
-export default TimeElapsedCounter
+    updateElapsedTime(); // Run immediately to show the initial elapsed time
+    const interval = setInterval(updateElapsedTime, 1000); // Update every second
+
+    return () => clearInterval(interval); // Clean up on component unmount
+  }, [targetDate]); // Only re-run effect if targetDate changes
+
+  return (
+    <div>
+      Time Elapsed : {timeElapsed}
+    </div>
+  );
+};
+
+export default TimeElapsedCounter;
+

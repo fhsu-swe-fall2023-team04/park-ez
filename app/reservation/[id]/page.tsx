@@ -1,5 +1,7 @@
 import TimeElapsedCounter from '@/_components/TimeElapsedCounter'
-import { ObjectId } from 'mongoose'
+import {ObjectId} from 'mongoose'
+import carpic from '@/_media/images/auto-blue.svg'
+import Image from 'next/image'
 
 export default async function Message({
 	params,
@@ -13,8 +15,8 @@ export default async function Message({
 		.catch((err) => console.error(err))
 
 	return (
-		<div className='flex justify-center'>
-			<div className='w-[800px]'>
+		<div className='flex justify-center '>
+			<div className='w-[800px] bg-slate-800 p-8 m-4 space-y-28 rounded shadow-xl'>
 				<header className=' flex justify-evenly'>
 					<p>
 						{reservation?.customer.firstName} {reservation?.customer.lastName}
@@ -49,14 +51,14 @@ export default async function Message({
 							)}
 						</button>
 					</div>
-					<div className=' text-center'>
-						<p>car icon here</p>
+					<div className=' text-left px-8'>
+						<Image src={carpic} className='' alt='carpic' width={50} height={50} />
 						<p>license plate: {reservation.vehicle.licensePlate}</p>
-						<div className='flex justify-evenly'>
+						<div className='flex justify-between'>
 							<p>{reservation.vehicle.make}</p>
 							<p>{reservation.vehicle._model}</p>
 						</div>
-						<div className='flex justify-evenly'>
+						<div className='flex justify-between'>
 							<p>{reservation.vehicle.color}</p>
 							<p>{reservation.vehicle.year}</p>
 						</div>

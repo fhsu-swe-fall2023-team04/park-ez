@@ -1,9 +1,9 @@
 // Team 1 to modify as needed
 
 import {Document, Model, model, models, Schema} from 'mongoose'
-import {VehicleDocument} from './Vehicle'
 import {ReservationDocument} from './Reservation'
 import {TransactionDocument} from './Transaction'
+import {VehicleDocument} from './Vehicle'
 
 export interface CustomerDocument extends Document {
     firstName: string
