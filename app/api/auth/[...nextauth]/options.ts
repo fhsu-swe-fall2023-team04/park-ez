@@ -1,7 +1,7 @@
 
 import { NextAuthOptions } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
-import EmailProvider from "next-auth/providers/email";
+import CredentialsProvider from "next-auth/providers/credentials";
 import startDb from '@/_utils/startDb';
 import Customer from '@/_models/Customer';
 import {ObjectId} from 'mongoose';
@@ -27,18 +27,18 @@ export const authOptions: NextAuthOptions = {
 				},
 			},
 		}),
-
-        // EmailProvider({
-        //     server: {
-        //         host: process.env.EMAIL_SERVER_HOST,
-        //         port: process.env.EMAIL_SERVER_PORT,
-        //         auth: {
-        //             user: process.env.EMAIL_SERVER_USER,
-        //             pass: process.env.EMAIL_SERVER_PASSWORD
-        //         },
-        //         from: process.env.EMAIL_FROM
-        //     }
-        // })
+ 		CredentialsProvider({
+			name: 'Credentials',
+			credentials: {},
+			async authorize(credentials: any): Promise<any> {
+				const user = JSON.parse(credentials.user);
+				if (user) {
+					console.log(user)
+				return user;
+				}
+				return null;
+			}
+    })
 	],
 	callbacks: {
 
@@ -48,7 +48,7 @@ export const authOptions: NextAuthOptions = {
 			}
 			return token
 		},
-		async session({ session, token }) {
+		async session({ user,session, token }) {
 			await startDb()
 
 			const sessionUser = await Customer.findOne({

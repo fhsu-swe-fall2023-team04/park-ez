@@ -23,7 +23,8 @@ const transactionSchema = new Schema<TransactionDocument>({
     reservation: {type: Schema.Types.ObjectId, ref: 'Reservation'},
     status: {type: String, required: true},
 
-})
+},  { timestamps: true }
+)
 
 const Transaction = models?.Transaction || model('Transaction', transactionSchema)
 export default Transaction as Model<TransactionDocument>

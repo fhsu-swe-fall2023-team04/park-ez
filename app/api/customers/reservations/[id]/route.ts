@@ -12,8 +12,16 @@ export const GET = async (
 ) => {
 	
 	await startDb()
-    const customer = await Customer.findById(params.id).populate('reservations')
-    const reservations = customer?.reservations
+	const customer = await Customer.findById(params.id).populate({
+    path: 'reservations',
+   populate: [
+      { path: 'parkingSpace' },  // Assuming the ref is correctly set in your Reservation schema
+      { path: 'customer' },      // Assuming the ref is correctly set in your Reservation schema
+      { path: 'vehicle' }        // Assuming the ref is correctly set in your Reservation schema
+    ]
+  })
+	const reservations = customer?.reservations
+
     
 
 	return NextResponse.json(reservations)

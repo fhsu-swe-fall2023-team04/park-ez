@@ -1,24 +1,54 @@
 import GoogleButton from '@/_components/GoogleButton'
+import { auth } from '@/_utils/firebase'
+import {
+	createUserWithEmailAndPassword,
+	sendSignInLinkToEmail,
+} from 'firebase/auth'
 import { getServerSession } from 'next-auth'
+
 import { authOptions } from '../api/auth/[...nextauth]/options'
-import { redirect } from 'next/navigation'
+import {redirect} from 'next/navigation'
 
 export default async function SignIn() {
 	const session = await getServerSession(authOptions)
 	if (session?.user) {
 		redirect('/')
 	}
-	// const customers = await fetch(`${process.env.URL}/api/customers/`)
-	// 	.then((res) => res.json())
-	// 	.catch((error) => console.error(error))
 
-	// const submitForm = async (fd: FormData) => {
-	// 	'use server'
-	// 	// const phone = fd.get('phone')?.toString()
-	// 	// const files: File = fd.get('files') as File
-	// 	// const licensePlate = await getLicensePlate(files)
-	// 	// console.log("License Plate: ", licensePlate)
-	// }
+	const actionCodeSettings = {
+		// URL you want to redirect back to. The domain (www.example.com) for this
+		// URL must be in the authorized domains list in the Firebase Console.
+		url: `${process.env.URL}/signin-confirm`,
+		// This must be true
+		handleCodeInApp: true,
+	}
+
+	const signIn = async (fd: FormData) => {
+		'use server'
+		const email = fd.get('email')?.toString()
+
+		
+		createUserWithEmailAndPassword(auth, email as string, 'foodoo').then(
+			(res) => console.log(res, 'response from create')
+		)
+
+		sendSignInLinkToEmail(auth, email as string, actionCodeSettings)
+			.then((res) => {
+				console.log(res, 'response from google')
+				if (typeof window !== 'undefined') {
+					window.localStorage.setItem('emailForSignIn', email as string)
+					console.log(window.localStorage, 'window.localStorage')
+				}
+
+				// ...
+			})
+			.catch((error) => {
+				const errorCode = error.code
+				const errorMessage = error.message
+				console.log('errorr: ', error)
+				// ...
+			})
+	}
 
 	return (
 		<div className='bg-gray-50 dark:bg-gray-900 h-screen  '>
@@ -37,14 +67,13 @@ export default async function SignIn() {
 							Sign in to your account
 						</h1>
 						{/*  */}
-						<form className='space-y-4 md:space-y-6 w-full'>
-						
+						<form className='space-y-4 md:space-y-6 w-full' action={signIn}>
 							{/* telphone */}
 							<div>
 								<input
-									type='tel'
-									name='phone'
-									placeholder='Phone Number'
+									type='email'
+									name='email'
+									placeholder='Email'
 									className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
 									required
 								/>
@@ -57,14 +86,11 @@ export default async function SignIn() {
 								Sign in
 							</button>
 							<GoogleButton />
-							<p className='text-sm font-light text-gray-500 dark:text-gray-400'>
-								Don’t have an account yet?{' '}
-								<a
-									href='#'
-									className='font-medium text-primary-600 hover:underline dark:text-primary-500'
-								>
-									Sign up
-								</a>
+							<p className='mt-10 text-center text-sm text-gray-400'>
+								Not a member?{' '}
+								<button className='font-semibold leading-6 text-indigo-400 hover:text-indigo-300'>
+									Sign Up
+								</button>
 							</p>
 						</form>
 					</div>

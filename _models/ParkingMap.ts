@@ -5,7 +5,6 @@ import {Document, Model, model, models, Schema} from 'mongoose'
 
 enum statusEnum {
 	Available = 'Available',
-	Occupied = 'Occupied',
 	Reserved = 'Reserved',
 }
 enum levelEnum {
@@ -20,6 +19,7 @@ export interface ParkingMapDocument extends Document {
     number: number
     level: levelEnum
     status: statusEnum
+    occupied: boolean
 }
 
 const parkingMapSchema = new Schema<ParkingMapDocument>({
@@ -27,6 +27,7 @@ const parkingMapSchema = new Schema<ParkingMapDocument>({
     number: {type: Number, required: true},
     level: {type: String, required: true},
     status: {type: String, required: true},
+    occupied:{type:Boolean, default: false},
 
 })
 

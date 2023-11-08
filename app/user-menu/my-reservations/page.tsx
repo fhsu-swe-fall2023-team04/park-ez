@@ -11,12 +11,11 @@ export default async function Reservations() {
 	)
 		.then((res) => res.json())
     .catch((err) => console.error(err))
-  console.log(reservations,"reservations")
 	return (
 		<div>
       Reservations
 			{reservations?.map((item: any) => (
-				<div>
+				<div key={item._id}>
           <p>{item._id}</p>
           <p>{item.customer}</p>
           <p>{item.vehicle}</p>

@@ -15,6 +15,7 @@ export interface ReservationDocument extends Document {
     }
     entryTime: Date
     exitTime: Date
+    inProgress: boolean
 }
 
 const reservationSchema = new Schema<ReservationDocument>({
@@ -26,9 +27,11 @@ const reservationSchema = new Schema<ReservationDocument>({
         ratePerDay: {type: Number, required: true},
     },
     entryTime: {type: Date, default: Date.now},
-    exitTime: {type: Date,default: Date.now},
+    exitTime: {type: Date, default: Date.now},
+    inProgress: {type: Boolean, default: true}
 
-})
+},  { timestamps: true }
+)
 
 const Reservation = models?.Reservation || model('Reservation', reservationSchema)
 export default Reservation as Model<ReservationDocument>

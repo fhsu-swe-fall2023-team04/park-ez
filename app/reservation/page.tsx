@@ -1,15 +1,40 @@
 import ParkingSpaceMap from '@/_components/ParkingSpaceMap'
-import ParkingMap from '@/_models/ParkingMap'
-import startDb from '@/_utils/startDb'
 import axios from 'axios'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]/options'
-import {redirect} from 'next/navigation'
+import { redirect } from 'next/navigation'
+import {revalidateTag} from 'next/cache'
 
 export default async function Reservation() {
-	const parkingSpaces = await axios.get(`${process.env.URL}/api/parking-spaces`)
-	const availableParking = parkingSpaces.data.filter((parking: any) => {
-		return parking.status==='Available'
+	const session = await getServerSession(authOptions)
+
+	const userReservations = await fetch(
+		`${process.env.URL}/api/customers/reservations/${session?.user._id}`
+	)
+		.then((res) => res.json())
+		.catch((err) => console.error(err))
+	
+
+	const inProgressReservation = userReservations?.find(
+		(reservation: { inProgress: boolean }) => {
+			return reservation.inProgress === true
+		}
+	)
+
+
+	if (inProgressReservation) {
+		redirect(`/reservation/${inProgressReservation._id}`)
+	}
+
+	const parkingSpaces = await fetch(`${process.env.URL}/api/parking-spaces`, {
+		cache: 'no-cache',
+		next: { tags: ['parking-spaces'] },
+	})
+		.then((res) => res.json())
+		.catch((err) => console.error(err))
+
+	const availableParking = parkingSpaces.filter((parking: any) => {
+		return parking.status === 'Available'
 	})
 
 	const handleSubmit = async (fd: FormData) => {
@@ -26,26 +51,29 @@ export default async function Reservation() {
 			ratePerHour: 5,
 			ratePerDay: 20,
 		}
+ 
 		const reservation = {
 			parkingSpace,
 			customer,
 			vehicle,
 			rate,
 			entryTime,
-			exitTime
+			exitTime,
 		}
 
-		await fetch(`${process.env.URL}/api/reservations`, {
+		const res = await fetch(`${process.env.URL}/api/reservations`, {
 			method: 'POST',
 			body: JSON.stringify(reservation),
 		})
 			.then((res) => {
-				console.log(res.json())
-				redirect('/')
+				revalidateTag('parking-spaces')
+				return res.json()
 			})
 			.catch((err) => {
 				console.error(err)
 			})
+
+		console.log("redirecting from botton")
 	}
 
 	return (
@@ -73,7 +101,7 @@ export default async function Reservation() {
 									key={space._id}
 									className='flex py-4 items-center justify-between  '
 								>
-									<input type='text' value={space._id} name='space' hidden />
+									<input type='text' defaultValue={space._id} name='space' hidden />
 									<div className='[&>*]:block'>
 										<big>{space.distance} ft away</big>
 										<small className=' text-slate-400'>

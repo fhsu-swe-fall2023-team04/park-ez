@@ -3,7 +3,7 @@
 import { getSession, signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import {redirect} from 'next/navigation'
+import { redirect } from 'next/navigation'
 import React, { useState } from 'react'
 
 export default function MenuButton() {
@@ -15,7 +15,7 @@ export default function MenuButton() {
 				<button onClick={() => setOpenMenu(!openMenu)}>
 					<Image
 						src={
-							session?.user.image as string ||
+							(session?.user.image as string) ||
 							'https://axiumradonmitigations.com/wp-content/uploads/2015/01/icon-user-default.png'
 						}
 						width={60}
@@ -156,7 +156,8 @@ export default function MenuButton() {
 						<li
 							className=' p-2 flex justify-between items-center hover:bg-slate-400'
 							onClick={() => {
-								signOut(),
+								signOut()
+								localStorage.clear()
 								redirect('/sign-in')
 							}}
 						>

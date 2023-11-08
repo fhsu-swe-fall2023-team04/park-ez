@@ -27,7 +27,8 @@ const customerSchema = new Schema<CustomerDocument>({
     reservations: [{type: Schema.Types.ObjectId, ref: 'Reservation', default: []}],
     transactions: [{type: Schema.Types.ObjectId, ref: 'Transaction', default: []}],
     paymentMethod: {type: String, required: true}
-})
+},  { timestamps: true }
+)
 
 const Customer = models?.Customer || model('Customer', customerSchema)
 export default Customer as Model<CustomerDocument>

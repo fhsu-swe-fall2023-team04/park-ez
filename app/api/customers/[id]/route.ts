@@ -12,7 +12,7 @@ export const GET = async (
 ) => {
 	
 	await startDb()
-	const customer = await Customer.findById(params.id)
+	const customer = await Customer.findById(params.id).populate('vehicles')
 
 	return NextResponse.json(customer)
 }

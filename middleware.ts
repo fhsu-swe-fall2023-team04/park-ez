@@ -12,7 +12,8 @@ export async function middleware(req: NextRequest) {
 		'/user-menu/wallet',
 		'/about/about-us',
 		'/about/how-to-use',
-		'/sign-up'
+		'/sign-up',
+		'/signin-confirm'
 
 	]
 	const isPathProtected = protectedPaths?.some((path) => pathname == path)
