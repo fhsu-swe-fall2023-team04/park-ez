@@ -1,19 +1,23 @@
 'use client'
 
-import {getSession, useSession} from 'next-auth/react'
+import { getSession, signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
+import {redirect} from 'next/navigation'
 import React, { useState } from 'react'
 
 export default function MenuButton() {
 	const [openMenu, setOpenMenu] = useState(false)
-	const {data:session} = useSession()
+	const { data: session } = useSession()
 	return (
 		<div>
 			<div className='dropdown dropdown-end relative shadow-2xl'>
 				<button onClick={() => setOpenMenu(!openMenu)}>
 					<Image
-						src={session?.user.image}
+						src={
+							session?.user.image ||
+							'https://axiumradonmitigations.com/wp-content/uploads/2015/01/icon-user-default.png'
+						}
 						width={60}
 						height={60}
 						alt='profile pic'
@@ -123,6 +127,32 @@ export default function MenuButton() {
 							</svg>
 
 							<p>Profile Settings</p>
+						</li>
+					</Link>
+					<Link href=''>
+						<li
+							className=' p-2 flex justify-between items-center hover:bg-slate-400'
+							onClick={() => {
+								signOut()
+								redirect('/sign-in')
+							}}
+						>
+							<svg
+								xmlns='http://www.w3.org/2000/svg'
+								fill='none'
+								viewBox='0 0 24 24'
+								strokeWidth={1.5}
+								stroke='currentColor'
+								className='w-6 h-6'
+							>
+								<path
+									strokeLinecap='round'
+									strokeLinejoin='round'
+									d='M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75'
+								/>
+							</svg>
+
+							<p>Sign Out</p>
 						</li>
 					</Link>
 				</ul>
