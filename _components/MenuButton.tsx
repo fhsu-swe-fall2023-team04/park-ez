@@ -1,19 +1,21 @@
 'use client'
 
+import {getSession, useSession} from 'next-auth/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useState } from 'react'
 
 export default function MenuButton() {
 	const [openMenu, setOpenMenu] = useState(false)
+	const {data:session} = useSession()
 	return (
 		<div>
 			<div className='dropdown dropdown-end relative shadow-2xl'>
 				<button onClick={() => setOpenMenu(!openMenu)}>
 					<Image
-						src='https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'
-						width={40}
-						height={40}
+						src={session?.user.image}
+						width={60}
+						height={60}
 						alt='profile pic'
 						className=' rounded-full'
 					/>

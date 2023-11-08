@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import { ReactNode } from 'react'
 import '../_styles/globals.css'
 import Header from '@/_components/Header'
+import Providers from '@/_utils/provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -15,14 +16,23 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
 	return (
 		<html className='n ' lang='en'>
-			<body
-				className={`${inter.className} bg-slate-900 text-white h-full w-screen`}
-			>
-				<nav>
-					<Header />
-				</nav>
-				{children}
-			</body>
+			<head>
+				<script
+					src='https://www.google.com/recaptcha/api.js'
+					async
+					defer
+				></script>
+			</head>
+			<Providers>
+				<body
+					className={`${inter.className} bg-slate-900 text-white h-full w-screen`}
+				>
+					<nav>
+						<Header />
+					</nav>
+					{children}
+				</body>
+			</Providers>
 		</html>
 	)
 }
