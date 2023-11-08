@@ -26,7 +26,7 @@ const reservationSchema = new Schema<ReservationDocument>({
         ratePerDay: {type: Number, required: true},
     },
     entryTime: {type: Date, default: Date.now},
-    exitTime: {type: Date},
+    exitTime: {type: Date,default: Date.now},
 
 })
 

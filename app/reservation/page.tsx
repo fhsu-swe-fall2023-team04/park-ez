@@ -4,15 +4,21 @@ import startDb from '@/_utils/startDb'
 import axios from 'axios'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]/options'
+import {redirect} from 'next/navigation'
 
 export default async function Reservation() {
 	const parkingSpaces = await axios.get(`${process.env.URL}/api/parking-spaces`)
-	const session = await getServerSession(authOptions)
-	const user = session?.user
+	const availableParking = parkingSpaces.data.filter((parking: any) => {
+		return parking.status==='Available'
+	})
 
 	const handleSubmit = async (fd: FormData) => {
 		'use server'
+		const session = await getServerSession(authOptions)
+		const user = session?.user
+
 		const entryTime = fd.get('datetime')?.toString()
+		const exitTime = Date.now()
 		const parkingSpace = fd.get('space')?.toString()
 		const customer = user?._id
 		const vehicle = user?.vehicles[0]
@@ -25,16 +31,21 @@ export default async function Reservation() {
 			customer,
 			vehicle,
 			rate,
-			entryTime
+			entryTime,
+			exitTime
 		}
-
 
 		await fetch(`${process.env.URL}/api/reservations`, {
 			method: 'POST',
 			body: JSON.stringify(reservation),
-		}).then((res) => {
-			console.log(res.json())
-		}).catch(err => {console.error(err)})
+		})
+			.then((res) => {
+				console.log(res.json())
+				redirect('/')
+			})
+			.catch((err) => {
+				console.error(err)
+			})
 	}
 
 	return (
@@ -57,7 +68,7 @@ export default async function Reservation() {
 						{' '}
 						<p className=' text-2xl py-2'>Available parking spaces</p>
 						<ul className=' w-[500px]  bg-slate-800 rounded-xl px-4 py-2 divide-y-2 divide-slate-400 overflow-scroll h-[70vh]'>
-							{parkingSpaces.data.map((space: any) => (
+							{availableParking.map((space: any) => (
 								<li
 									key={space._id}
 									className='flex py-4 items-center justify-between  '
