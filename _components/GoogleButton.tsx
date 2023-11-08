@@ -5,7 +5,7 @@ import { JSX, SVGProps } from 'react'
 const GoogleButton = () => {
 	return (
 		<div
-			className='flex text-black w-full justify-center gap-5 rounded bg-white py-4 px-4 text-sm font-bold drop-shadow-md hover:bg-gray-50'
+			className='flex text-black w-full justify-center gap-5 rounded bg-white py-4 px-4 text-sm font-bold drop-shadow-md hover:bg-gray-50 hover:cursor-pointer'
 			onClick={() => signIn('google')}
 		>
 			<GoogleLogo />
