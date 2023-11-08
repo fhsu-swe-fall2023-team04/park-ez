@@ -11,7 +11,6 @@ export default async function SignUp() {
 
 	const session = await getServerSession(authOptions)
 	const user = session?.user
-	console.log(user, 'userrrj')
 
 	if (user?.phone !== undefined) {
 		redirect('/')

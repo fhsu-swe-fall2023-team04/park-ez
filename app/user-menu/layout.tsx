@@ -29,6 +29,16 @@ export default function Menu({ children }: { children: ReactNode }) {
 							<h1 className=' text-2xl py-4'>My Reservations</h1>
 						</li>
 					</Link>
+					<Link href='/user-menu/my-transactions'>
+						<li className='flex space-x-8'>
+							<div
+								className={`${
+									pathname === '/user-menu/my-transactions' ? '' : 'hidden'
+								} w-2 rounded bg-teal-500 my-2 `}
+							></div>
+							<h1 className=' text-2xl py-4'>My Transactions</h1>
+						</li>
+					</Link>
 					<Link href='/user-menu/wallet'>
 						<li className='flex space-x-8'>
 							<div
