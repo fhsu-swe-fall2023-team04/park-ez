@@ -59,8 +59,8 @@ export default async function Wallet() {
 				payment_method_types: ['card'],
 				mode: 'setup',
 				customer: 'cus_OvsQ7xyhnCsO8t',
-				success_url: `http://localhost:3000/user-menu`,
-				cancel_url: `http://localhost:3000/user-menu`,
+				success_url: `${process.env.URL}/user-menu`,
+				cancel_url: `${process.env.URL}/user-menu`,
 			})
 			redirect(session.url!)
 		} catch (error) {
