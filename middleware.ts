@@ -5,7 +5,6 @@ export async function middleware(req: NextRequest) {
 	const pathname = req.nextUrl.pathname
 	const protectedPaths = [
         '/',
-        '/',
         '/reservation',
 		'/user-menu/my-reservations',
 		'/user-menu/settings',
