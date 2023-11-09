@@ -1,6 +1,7 @@
 'use server'
 
 import Customer from '@/_models/Customer'
+import Reservation from '@/_models/Reservation'
 
 import startDb from '@/_utils/startDb'
 import { ObjectId } from 'mongoose'
@@ -14,6 +15,7 @@ export const GET = async (
 	await startDb()
 	const customer = await Customer.findById(params.id).populate({
 		path: 'reservations',
+		model:'Reservation',
    populate: [
       { path: 'parkingSpace' },  // Assuming the ref is correctly set in your Reservation schema
       { path: 'customer' },      // Assuming the ref is correctly set in your Reservation schema

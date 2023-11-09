@@ -1,6 +1,14 @@
+import {authOptions} from '@/app/api/auth/[...nextauth]/options'
+import {getServerSession} from 'next-auth'
+import {redirect} from 'next/navigation'
 import React from 'react'
 
-export default function AboutUs() {
+export default async function AboutUs() {
+	const session = await getServerSession(authOptions)
+	if (!session?.user.phone) {
+		redirect('/')
+	}
+
 	return (
 		<div className=' px-4 pt-8 leading-8 [&>h1]:text-2xl [&>h1]:py-4 [&>h1]:font-bold '>
 			<h1>About Park EZ</h1>{' '}

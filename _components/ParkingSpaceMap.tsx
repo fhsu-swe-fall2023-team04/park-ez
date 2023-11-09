@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {ObjectId} from 'mongoose'
 import React from 'react'
 
 export default async function ParkingSpaceMap() {
@@ -15,6 +16,7 @@ export default async function ParkingSpaceMap() {
 		return spaces.map(
 			(
 				space: {
+					_id:ObjectId
 					status: string
 					distance: number
 					level: String
@@ -35,7 +37,6 @@ export default async function ParkingSpaceMap() {
 							useGrouping: false,
 						})}
 					</p>
-
 				</div>
 			)
 		)

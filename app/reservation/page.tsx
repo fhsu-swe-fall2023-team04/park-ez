@@ -8,7 +8,11 @@ import {revalidateTag} from 'next/cache'
 export default async function Reservation() {
 
 	const session = await getServerSession(authOptions)
+	if (!session?.user.phone) {
+		redirect('/')
+	}
 
+	// find all user reservations
 	const userReservations = await fetch(
 		`${process.env.URL}/api/customers/reservations/${session?.user._id}`
 	)
@@ -23,11 +27,12 @@ export default async function Reservation() {
 		}
 	)
 
+	// if there is a reservation in progress redirect!
 	if (inProgressReservation) {
 		redirect(`/reservation/${inProgressReservation._id}`)
 	}
 
-
+	// all parking spaces
 	const parkingSpaces = await fetch(`${process.env.URL}/api/parking-spaces`, {
 		cache: 'no-cache',
 		next: { tags: ['parking-spaces'] },
@@ -35,6 +40,7 @@ export default async function Reservation() {
 		.then((res) => res.json())
 		.catch((err) => console.error(err))
 
+	// available spaces
 	const availableParking = parkingSpaces.filter((parking: any) => {
 		return parking.status === 'Available'
 	})
@@ -98,9 +104,9 @@ export default async function Reservation() {
 						{' '}
 						<p className=' text-2xl py-2'>Available parking spaces</p>
 						<ul className=' w-[500px]  bg-slate-800 rounded-xl px-4 py-2 divide-y-2 divide-slate-400 overflow-scroll h-[70vh]'>
-							{availableParking.map((space: any) => (
+							{availableParking.map((space: any, index:any) => (
 								<li
-									key={space._id}
+									key={index}
 									className='flex py-4 items-center justify-between  '
 								>
 									<input type='text' defaultValue={space._id} name='space' hidden />
