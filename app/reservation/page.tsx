@@ -73,7 +73,7 @@ export default async function Reservation() {
 									key={space._id}
 									className='flex py-4 items-center justify-between  '
 								>
-									<input type='text' value={space._id} name='space' hidden />
+									<input type='text' defaultValue={space._id} name='space' hidden />
 									<div className='[&>*]:block'>
 										<big>{space.distance} ft away</big>
 										<small className=' text-slate-400'>

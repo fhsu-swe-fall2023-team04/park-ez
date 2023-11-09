@@ -20,5 +20,5 @@ export const getLicensePlate = async (files:File) => {
 		.then((res) => res.json())
 		.catch((err) => console.error(err))
 		
-	return(license[0].value)
+	return(license[0]?.value)
 }

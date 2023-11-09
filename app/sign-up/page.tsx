@@ -103,7 +103,7 @@ export default async function SignUp() {
 							<input
 								type='text'
 								name='firstName'
-								value={user?.name?.split(' ')[0]}
+								defaultValue={user?.name?.split(' ')[0]}
 								className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
 								placeholder='First Name'
 								required
@@ -113,7 +113,7 @@ export default async function SignUp() {
 							<input
 								type='text'
 								name='lastName'
-								value={user?.name?.split(' ')[1]}
+								defaultValue={user?.name?.split(' ')[1]}
 								className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
 								placeholder='Last Name'
 								required
@@ -124,7 +124,7 @@ export default async function SignUp() {
 								<input
 									type='email'
 									name='email'
-									value={user?.email as string}
+									defaultValue={user?.email as string}
 									className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
 									placeholder='Email'
 									required
