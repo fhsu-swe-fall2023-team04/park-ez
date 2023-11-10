@@ -1,20 +1,19 @@
-
-
 import React from 'react'
 import { Stripe } from 'stripe'
 import { redirect } from 'next/navigation'
 
-export default async function Wallet() {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+	apiVersion: '2023-10-16',
+})
 
-	const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-		apiVersion: '2023-10-16',
-	})
+export default async function Wallet() {
+	'use server'
 
 	const paymentMethods = await stripe.customers.listPaymentMethods(
 		'cus_OvsQ7xyhnCsO8t',
 		{ type: 'card', limit: 1 }
 	)
-
+	
 	const handleTopUp = async (fd: FormData) => {
 		'use server'
 
@@ -27,7 +26,7 @@ export default async function Wallet() {
 		}
 
 		try {
-			await stripe.charges.create(param)
+			await stripe.charges.create(param);
 
 			/* Add transaction to MongoDB
 			var transaction_id = (await stripe.charges.create(param)).id;
@@ -47,7 +46,8 @@ export default async function Wallet() {
 			})
 			*/
 		} catch (error) {
-			throw error
+			console.log(error);
+			throw error;
 		}
 	}
 
