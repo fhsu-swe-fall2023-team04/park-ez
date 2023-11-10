@@ -4,7 +4,7 @@ import React from 'react'
 
 export default async function Settings() {
 	const session = await getServerSession(authOptions)
-	console.log(session?.user)
+	console.log(session)
 
 	const user = await fetch(
 		`${process.env.URL}/api/customers/${session?.user._id}`
@@ -12,7 +12,6 @@ export default async function Settings() {
 		.then((res) => res.json())
 		.catch((err) => console.error(err))
 
-	console.log(user)
 
 	return (
 		<div className='flex items-start justify-evenly'>

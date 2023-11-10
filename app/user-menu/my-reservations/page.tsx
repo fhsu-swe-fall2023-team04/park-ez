@@ -6,7 +6,7 @@ export default async function Reservations() {
 	const session = await getServerSession(authOptions)
 	const user = session?.user
 	const reservations = await fetch(
-		`${process.env.URL}/api/customers/reservations/${user?._id}`
+		`${process.env.URL}/api/reservations/customer/${user?._id}`
 	)
 		.then((res) => res.json())
 		.catch((err) => console.error(err))

@@ -1,6 +1,6 @@
 // Team 3 to modify as needed
 
-import {Document, Model, model, models, Schema} from 'mongoose'
+import mongoose, {Document, Model, model, models, ObjectId, Schema} from 'mongoose'
 import {CustomerDocument} from './Customer'
 import {ReservationDocument} from './Reservation'
 
@@ -12,8 +12,8 @@ enum statusEnum {
 
 export interface TransactionDocument extends Document {
     totalCost: number,
-    customer: CustomerDocument['_id'],
-    reservation: ReservationDocument['_id'],
+    customer: ObjectId,
+    reservation: ObjectId,
     status: statusEnum,
 }
 
@@ -26,5 +26,5 @@ const transactionSchema = new Schema<TransactionDocument>({
 },  { timestamps: true }
 )
 
-const Transaction = models?.Transaction || model('Transaction', transactionSchema)
+const Transaction = mongoose.models?.Transaction || mongoose.model('Transaction', transactionSchema)
 export default Transaction as Model<TransactionDocument>

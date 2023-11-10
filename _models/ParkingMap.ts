@@ -1,6 +1,6 @@
 // Team 2 to modify as needed
 
-import {Document, Model, model, models, Schema} from 'mongoose'
+import mongoose, {Document, Model, model, models, Schema} from 'mongoose'
 
 
 enum statusEnum {
@@ -31,5 +31,5 @@ const parkingMapSchema = new Schema<ParkingMapDocument>({
 
 })
 
-const ParkingMap = models?.ParkingMap || model('ParkingMap', parkingMapSchema)
+const ParkingMap = mongoose.models?.ParkingMap || mongoose.model('ParkingMap', parkingMapSchema)
 export default ParkingMap as Model<ParkingMapDocument>

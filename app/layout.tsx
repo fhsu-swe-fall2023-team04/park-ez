@@ -23,16 +23,16 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 					defer
 				></script>
 			</head>
-			<Providers>
-				<body
-					className={`${inter.className} bg-slate-900 text-white h-full w-screen`}
-				>
-					<nav>
-						<Header />
-					</nav>
-					{children}
-				</body>
-			</Providers>
+				<Providers>
+					<body
+						className={`${inter.className} bg-slate-900 text-white h-full w-screen`}
+					>
+						<nav>
+							<Header />
+						</nav>
+						{children}
+					</body>
+				</Providers>
 		</html>
 	)
 }

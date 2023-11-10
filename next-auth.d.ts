@@ -9,9 +9,9 @@ declare module 'next-auth' {
             name: String
             image: String,
             phone: String,
-            vehicles: [VehicleDocument['_id']],
-            reservations: [ReservationDocument['_id']],
-            transactions: [TransactionDocument['_id']],
+            vehicles: [ObjectId],
+            reservations: [ObjectId],
+            transactions: [ObjectId],
             paymentMethod: string
 
         } & DefaultSession
@@ -24,9 +24,9 @@ declare module 'next-auth' {
             lastName: String,
             image: String,
             phone: String,
-            vehicles: [VehicleDocument['_id']],
-            reservations: [ReservationDocument['_id']],
-            transactions: [TransactionDocument['_id']],
+            vehicles: [ObjectId],
+            reservations: [ObjectId],
+            transactions: [ObjectId],
             paymentMethod: string
 		}
 }

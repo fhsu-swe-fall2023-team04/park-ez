@@ -2,11 +2,10 @@
 
 
 
-import {Document, Model, model, models, ObjectId, Schema} from 'mongoose'
+import mongoose, {Document, Model, model, models, ObjectId, Schema} from 'mongoose'
 
 
 export interface VehicleDocument extends Document {
-
     licensePlate: string
     vehicleType: string
     make:string
@@ -25,5 +24,5 @@ const vehicleSchema = new Schema<VehicleDocument>({
 }
 )
 
-const Vehicle = models?.Vehicle || model('Vehicle', vehicleSchema)
+const Vehicle = mongoose.models?.Vehicle || mongoose.model('Vehicle', vehicleSchema)
 export default Vehicle as Model<VehicleDocument>

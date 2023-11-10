@@ -1,9 +1,7 @@
 // Team 1 to modify as needed
 
-import {Document, Model, model, models, Schema} from 'mongoose'
-import {ReservationDocument} from './Reservation'
-import {TransactionDocument} from './Transaction'
-import {VehicleDocument} from './Vehicle'
+import mongoose, {Document, Model, model, models, ObjectId, Schema} from 'mongoose'
+
 
 export interface CustomerDocument extends Document {
     firstName: string
@@ -11,10 +9,10 @@ export interface CustomerDocument extends Document {
     email: string
     phone: string
     image: string
-    vehicles: [VehicleDocument['_id']]
+    vehicles: [ObjectId]
     paymentMethod: string
-    reservations: [ReservationDocument['_id']]
-    transactions: [TransactionDocument['_id']]
+    reservations: [ObjectId]
+    transactions: [ObjectId]
 }
 
 const customerSchema = new Schema<CustomerDocument>({
@@ -30,5 +28,5 @@ const customerSchema = new Schema<CustomerDocument>({
 },  { timestamps: true }
 )
 
-const Customer = models?.Customer || model('Customer', customerSchema)
+const Customer = mongoose.models?.Customer || mongoose.model('Customer', customerSchema)
 export default Customer as Model<CustomerDocument>

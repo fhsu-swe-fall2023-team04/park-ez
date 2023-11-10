@@ -1,13 +1,12 @@
 import GoogleButton from '@/_components/GoogleButton'
-import { auth } from '@/_utils/firebase'
+import {auth} from '@/_utils/firebase'
 import {
-	createUserWithEmailAndPassword,
-	sendSignInLinkToEmail,
+	sendSignInLinkToEmail
 } from 'firebase/auth'
-import { getServerSession } from 'next-auth'
+import {getServerSession} from 'next-auth'
 
-import { authOptions } from '../api/auth/[...nextauth]/options'
 import {redirect} from 'next/navigation'
+import {authOptions} from '../api/auth/[...nextauth]/options'
 
 export default async function SignIn() {
 	const session = await getServerSession(authOptions)
@@ -25,29 +24,20 @@ export default async function SignIn() {
 
 	const signIn = async (fd: FormData) => {
 		'use server'
-		const email = fd.get('email')?.toString()
+		  const email = fd.get('email')?.toString()
 
-		
-		createUserWithEmailAndPassword(auth, email as string, 'foodoo').then(
-			(res) => console.log(res, 'response from create')
-		)
+			try {
+				// await createUserWithEmailAndPassword(auth, email as string, 'somepassword')
+				// console.log('User created successfully.')
 
-		sendSignInLinkToEmail(auth, email as string, actionCodeSettings)
-			.then((res) => {
-				console.log(res, 'response from google')
-				if (typeof window !== 'undefined') {
-					window.localStorage.setItem('emailForSignIn', email as string)
-					console.log(window.localStorage, 'window.localStorage')
-				}
+				await sendSignInLinkToEmail(auth, email as string, actionCodeSettings)
+				console.log('Sign-in link sent to email:', email as string)
 
-				// ...
-			})
-			.catch((error) => {
-				const errorCode = error.code
-				const errorMessage = error.message
-				console.log('errorr: ', error)
-				// ...
-			})
+				// Since this code is in a function triggered by a user event, we can assume it's client-side
+				localStorage.setItem('emailForSignIn', email as string)
+			} catch (error) {
+				console.error('Error during sign-in:', error)
+			}
 	}
 
 	return (

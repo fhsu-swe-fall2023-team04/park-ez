@@ -1,27 +1,22 @@
-
 import ParkingSpaceMap from '@/_components/ParkingSpaceMap'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]/options'
 import { redirect } from 'next/navigation'
-import {revalidateTag} from 'next/cache'
+import { revalidateTag } from 'next/cache'
 
 export default async function Reservation() {
-
 	const session = await getServerSession(authOptions)
 	if (!session?.user.phone) {
 		redirect('/')
 	}
 
-	// find all user reservations
-	const userReservations = await fetch(
-		`${process.env.URL}/api/customers/reservations/${session?.user._id}`
+	const reservations = await fetch(
+		`${process.env.URL}/api/reservations/customer/${session.user._id}`
 	)
-		.then((res) => res.json())
+		.then((res) =>  res.json())
 		.catch((err) => console.error(err))
-	
-	console.log(userReservations)
-
-	const inProgressReservation = userReservations?.find(
+console.log(reservations)
+	const inProgressReservation = reservations?.find(
 		(reservation: { inProgress: boolean }) => {
 			return reservation.inProgress === true
 		}
@@ -59,7 +54,7 @@ export default async function Reservation() {
 			ratePerHour: 5,
 			ratePerDay: 20,
 		}
- 
+
 		const reservation = {
 			parkingSpace,
 			customer,
@@ -80,8 +75,7 @@ export default async function Reservation() {
 			.catch((err) => {
 				console.error(err)
 			})
-
-		console.log("redirecting from botton")
+		redirect(`/reservation/${res._id}`)
 	}
 
 	return (
@@ -104,12 +98,22 @@ export default async function Reservation() {
 						{' '}
 						<p className=' text-2xl py-2'>Available parking spaces</p>
 						<ul className=' w-[500px]  bg-slate-800 rounded-xl px-4 py-2 divide-y-2 divide-slate-400 overflow-scroll h-[70vh]'>
-							{availableParking.map((space: any, index:any) => (
+							{availableParking.map((space: any, index: any) => (
 								<li
 									key={index}
 									className='flex py-4 items-center justify-between  '
 								>
-									<input type='text' defaultValue={space._id} name='space' hidden />
+									{space._id}
+
+									{/* its messing up because fd.get('space') is referrring to all of them
+									hence it chooses the first one, maybe convert to client component
+									*/}
+									<input
+										type='text'
+										defaultValue={space._id}
+										name='space'
+										hidden
+									/>
 									<div className='[&>*]:block'>
 										<big>{space.distance} ft away</big>
 										<small className=' text-slate-400'>

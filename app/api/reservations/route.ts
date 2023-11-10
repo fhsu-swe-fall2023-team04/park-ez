@@ -33,5 +33,5 @@ export const POST = async (req: Request) => {
 		)
 
     // return reservation
-    return NextResponse.json({reservation:reservation})
+    return NextResponse.json(reservation)
 }
