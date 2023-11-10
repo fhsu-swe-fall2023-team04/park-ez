@@ -82,8 +82,8 @@ console.log(reservations)
 		<div className=' flex justify-evenly py-4 flex-wrap items-center '>
 			<form className='flex' action={handleSubmit}>
 				<div className=' space-y-4 w-full '>
-					{/* datetime */}
 					<div className=' '>
+						{/* date and time */}
 						<p className='py-2 text-2xl'>Date and Time</p>
 						<div className=''>
 							<input
@@ -103,17 +103,14 @@ console.log(reservations)
 									key={index}
 									className='flex py-4 items-center justify-between  '
 								>
-									{space._id}
-
 									{/* its messing up because fd.get('space') is referrring to all of them
 									hence it chooses the first one, maybe convert to client component
 									*/}
-									<input
-										type='text'
+									{/* <input
+										type='radio'
 										defaultValue={space._id}
 										name='space'
-										hidden
-									/>
+									/> */}
 									<div className='[&>*]:block'>
 										<big>{space.distance} ft away</big>
 										<small className=' text-slate-400'>
@@ -122,6 +119,8 @@ console.log(reservations)
 									</div>
 									<button
 										type='submit'
+										value={space._id}
+										name='space'
 										className=' bg-green-500 px-4 py-2 rounded'
 									>
 										Go
