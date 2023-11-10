@@ -71,7 +71,7 @@ export default async function SignUp() {
 					customer: customer,
 					vehicle: vehicle,
 				}),
-			}).then(async()=>await getSession())
+			}).then()
 
 			//Create a Stripe Customer
 			await stripe.customers.create(customerData)
