@@ -14,24 +14,31 @@ export default async function Settings() {
 
 
 	return (
-		<div className='flex items-start justify-evenly'>
+		<div style={{ fontSize: 20 }} className='flex items-start justify-evenly'>
 			<div>
-				<h1>User Info</h1>
-				<div>{user?.firstName}</div>
-				<div>{user?.lastName}</div>
-				<div>{user?.email}</div>
-				<div>{user?.phone}</div>
+				<br></br>
+				<h1>User Info: </h1>
+				<br></br>
+				<div>First Name:  {user?.firstName}</div>
+				<div>Last Name:  {user?.lastName}</div>
+				<div>Email:  {user?.email}</div>
+				<div>Phone:  {user?.phone}</div>
+				<div>Payment Method:  {user?.paymentMethod}</div>
 			</div>
 			<div>
 				{' '}
-				<h1>Vehicle(s)</h1>
+				<br></br>
+				<h1>Vehicle(s): </h1>
+				<br></br>
 				{user?.vehicles?.map((v: any) => (
 					<div key={v._id}>
-						<div>{v.licensePlate}</div>
-						<div>{v.make}</div>
-						<div>{v._model}</div>
-						<div>{v.color}</div>
-						<div>{v.year}</div>
+						<div>Licence Plate:  {v.licensePlate}</div>
+						<div>Make:  {v.make}</div>
+						<div>Model:  {v._model}</div>
+						<div>Color:  {v.color}</div>
+						<div>Year:  {v.year}</div>
+						<br></br>
+						<br></br>
 					</div>
 				))}
 			</div>
