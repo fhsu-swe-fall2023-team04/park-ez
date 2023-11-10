@@ -7,7 +7,6 @@ import mongoose, {Document, Model, model, models, ObjectId, Schema} from 'mongoo
 
 export interface VehicleDocument extends Document {
     licensePlate: string
-    vehicleType: string
     make:string
     _model: string
     color: string

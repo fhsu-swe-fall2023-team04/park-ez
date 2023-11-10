@@ -10,9 +10,9 @@ export interface CustomerDocument extends Document {
     phone: string
     image: string
     vehicles: [ObjectId]
-    paymentMethod: string
     reservations: [ObjectId]
     transactions: [ObjectId]
+     paymentMethod: string
 }
 
 const customerSchema = new Schema<CustomerDocument>({
