@@ -110,14 +110,7 @@ console.log(reservations)
 									key={index}
 									className='flex py-4 items-center justify-between  '
 								>
-									{/* its messing up because fd.get('space') is referrring to all of them
-									hence it chooses the first one, maybe convert to client component
-									*/}
-									{/* <input
-										type='radio'
-										defaultValue={space._id}
-										name='space'
-									/> */}
+									<input type='text' defaultValue={space._id} name='space' hidden />
 									<div className='[&>*]:block'>
 										<big>{space.distance} ft away</big>
 										<small className=' text-slate-400'>
