@@ -22,3 +22,4 @@ export const getLicensePlate = async (files:File) => {
 		
 	return(license[0].value)
 }
+

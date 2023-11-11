@@ -1,7 +1,13 @@
 import TimeElapsedCounter from '@/_components/TimeElapsedCounter'
-import {ObjectId} from 'mongoose'
+import { ObjectId } from 'mongoose'
 import carpic from '@/_media/images/auto-blue.svg'
 import Image from 'next/image'
+import { occupySpace } from '@/_serverActions/occupySpace'
+import { exitSpace } from '@/_serverActions/exitSpace'
+import startDb from '@/_utils/startDb'
+import ParkingMap from '@/_models/ParkingMap'
+import { redirect } from 'next/navigation'
+import { revalidateTag } from 'next/cache'
 
 export default async function Message({
 	params,
@@ -9,10 +15,30 @@ export default async function Message({
 	params: { id: ObjectId }
 }) {
 	const reservation = await fetch(
-		`${process.env.URL}/api/reservations/${params?.id}`
+		`${process.env.URL}/api/reservations/${params?.id}`,
+		{
+			cache: 'no-cache',
+			next: { tags: ['reservation'] },
+		}
 	)
 		.then((res) => res.json())
 		.catch((err) => console.error(err))
+
+	if (reservation.parkingSpace.status === 'Available') {
+		redirect('/reservation')
+	}
+
+	const handleOccupy = async () => {
+		'use server'
+		occupySpace(params?.id)
+		revalidateTag('reservation')
+	}
+	const handleExit = async () => {
+		'use server'
+
+		exitSpace(params?.id)
+		revalidateTag('reservation')
+	}
 
 	return (
 		<div className='flex justify-center '>
@@ -36,23 +62,31 @@ export default async function Message({
 							})}
 						</p>
 						<p>Status: {reservation?.parkingSpace.status}</p>
-						<button
-							type='submit'
-							className={`${
-								reservation?.parkingSpace.occupied
-									? 'bg-green-500'
-									: 'bg-red-500'
-							} p-2  rounded`}
-						>
-							{reservation?.parkingSpace.occupied ? (
-								<p>Leave Parking Space</p>
-							) : (
-								<p>Occupy Parking Space</p>
-							)}
-						</button>
+
+						{/* button */}
+
+						{reservation?.parkingSpace.occupied ? (
+							<form action={handleExit}>
+								<button type='submit' className='bg-red-500 p-2  rounded'>
+									<p>Leave Parking Space</p>
+								</button>
+							</form>
+						) : (
+							<form action={handleOccupy}>
+								<button type='submit' className='bg-green-500 p-2  rounded'>
+									<p>Occupy Parking Space</p>
+								</button>
+							</form>
+						)}
 					</div>
 					<div className=' text-left px-8'>
-						<Image src={carpic} className='' alt='carpic' width={50} height={50} />
+						<Image
+							src={carpic}
+							className=''
+							alt='carpic'
+							width={50}
+							height={50}
+						/>
 						<p>license plate: {reservation.vehicle.licensePlate}</p>
 						<div className='flex justify-between'>
 							<p>{reservation.vehicle.make}</p>

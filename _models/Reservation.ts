@@ -1,9 +1,6 @@
 // Team 2 to modify as needed
 
-import mongoose, {Document, Model, model, models, ObjectId, Schema} from 'mongoose'
-import {VehicleDocument} from './Vehicle'
-import {CustomerDocument} from './Customer'
-import {ParkingMapDocument} from './ParkingMap'
+import mongoose, {Document, Model, ObjectId, Schema} from 'mongoose'
 
 export interface ReservationDocument extends Document {
     parkingSpace: ObjectId

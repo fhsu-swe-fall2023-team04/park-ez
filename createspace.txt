@@ -13,6 +13,7 @@ levels.forEach((level) => {
 			level: level,
 			number: number,
 			status: 'Available'
+			occupied:false
 		})
 
 	}

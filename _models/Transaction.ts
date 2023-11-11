@@ -1,8 +1,6 @@
 // Team 3 to modify as needed
 
-import mongoose, {Document, Model, model, models, ObjectId, Schema} from 'mongoose'
-import {CustomerDocument} from './Customer'
-import {ReservationDocument} from './Reservation'
+import mongoose, {Document, Model, ObjectId, Schema} from 'mongoose'
 
 enum statusEnum {
 	Unpaid = 'Unpaid',
@@ -19,8 +17,8 @@ export interface TransactionDocument extends Document {
 
 const transactionSchema = new Schema<TransactionDocument>({
     totalCost: {type: Number, required: true},
-    customer: {type: Schema.Types.ObjectId, ref: 'Customer'},
-    reservation: {type: Schema.Types.ObjectId, ref: 'Reservation'},
+    customer: {type: Schema.Types.ObjectId, ref: 'Customer', required:true},
+    reservation: {type: Schema.Types.ObjectId, ref: 'Reservation', required:true},
     status: {type: String, required: true},
 
 },  { timestamps: true }

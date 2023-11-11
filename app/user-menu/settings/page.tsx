@@ -26,7 +26,7 @@ export default async function Settings() {
 				<div>Payment Method:  {user?.paymentMethod}</div>
 			</div>
 			<div>
-				{' '}
+
 				<br></br>
 				<h1>Vehicle(s): </h1>
 				<br></br>
