@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 
 const url = process.env.MONGO_URI as string;
 
-const startDb = async () => {
+export const startDb = async () => {
     if (mongoose.connection.readyState === 0) {
         try {
             await mongoose.connect(url);

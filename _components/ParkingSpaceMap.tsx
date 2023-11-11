@@ -1,14 +1,15 @@
-import axios from 'axios'
-import {ObjectId} from 'mongoose'
+import { ObjectId } from 'mongoose'
 import React from 'react'
 
 export default async function ParkingSpaceMap() {
-	const parkingSpaces = await axios.get(`${process.env.URL}/api/parking-spaces`)
+	const parkingSpaces = await fetch(`${process.env.URL}/api/parking-spaces`)
+		.then((res) => res.json())
+		.catch((err) => console.log(err))
 
 	const renderSpaces = (level: string) => {
 		// Assuming the parkingSpaces data is an array of objects with a 'level' property
-		const spaces = parkingSpaces.data
-			? parkingSpaces.data.filter(
+		const spaces = parkingSpaces
+			? parkingSpaces.filter(
 					(space: { level: string }) => space.level === level
 			  )
 			: []
@@ -16,7 +17,7 @@ export default async function ParkingSpaceMap() {
 		return spaces.map(
 			(
 				space: {
-					_id:ObjectId
+					_id: ObjectId
 					status: string
 					distance: number
 					level: String
