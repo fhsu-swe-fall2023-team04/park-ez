@@ -49,7 +49,7 @@ export const authOptions: NextAuthOptions = {
 			return token
 		},
 		async session({ user,session, token }) {
-			await startDb()
+			
 
 			const sessionUser = await Customer.findOne({
 				'email': session.user?.email
@@ -58,7 +58,7 @@ export const authOptions: NextAuthOptions = {
 			if (session?.user && sessionUser) {
 				session.user._id = sessionUser?._id
 				session.user.phone = sessionUser?.phone as string
-				session.user.vehicles = sessionUser?.vehicles as [ObjectId]
+				session.user.vehicle = sessionUser?.vehicle as ObjectId
 				session.user.reservations = sessionUser?.reservations as [ObjectId]
 				session.user.transactions = sessionUser?.transactions as [ObjectId]
 				session.user.paymentMethod = sessionUser?.paymentMethod as string

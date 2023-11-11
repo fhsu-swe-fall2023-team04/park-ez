@@ -7,8 +7,8 @@ import {revalidateTag} from 'next/cache'
 
 export const occupySpace = async (id: ObjectId) => {
 
-
-    await startDb()
+try {
+        
     const reservation = await Reservation.findOneAndUpdate(
         {_id: id},
         {
@@ -23,6 +23,10 @@ export const occupySpace = async (id: ObjectId) => {
             {occupied: true}
         );
     }
+} catch (error) {
+    console.error(error)
+}
+
     revalidateTag('reservation')
 
 }

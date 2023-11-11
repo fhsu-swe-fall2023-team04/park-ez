@@ -28,13 +28,13 @@ export default async function Settings() {
 			<div>
 
 				<br></br>
-				<h1>Vehicle(s): </h1>
+				<h1>Vehicle: </h1>
 				<br></br>
-				{user?.vehicles?.map((v: any) => (
+				{user?.vehicle?.map((v: any) => (
 					<div key={v._id}>
 						<div>Licence Plate:  {v.licensePlate}</div>
 						<div>Make:  {v.make}</div>
-						<div>Model:  {v._model}</div>
+						<div>Model:  {v.carModel}</div>
 						<div>Color:  {v.color}</div>
 						<div>Year:  {v.year}</div>
 						<br></br>

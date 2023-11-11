@@ -1,12 +1,12 @@
 // Team 2 to modify as needed
 
-import mongoose, {Document, Model, model, models, ObjectId, Schema} from 'mongoose'
+import mongoose, {Document, Model, Schema} from 'mongoose'
 
 
 export interface VehicleDocument extends Document {
     licensePlate: string
     make:string
-    _model: string
+    carModel: string
     color: string
     year: string
 
@@ -15,7 +15,7 @@ export interface VehicleDocument extends Document {
 const vehicleSchema = new Schema<VehicleDocument>({
 	licensePlate: { type: String, required: true, unique:true},
     make: {type: String, required: true},
-    _model: {type: String, required: true},
+    carModel: {type: String, required: true},
     color: {type: String, required: true},
     year: {type: String, required: true}
 }

@@ -1,11 +1,14 @@
 // Team 2 to modify as needed
 
 import mongoose, {Document, Model, ObjectId, Schema} from 'mongoose'
+import {ParkingMapDocument} from './ParkingMap'
+import {CustomerDocument} from './Customer'
+import {VehicleDocument} from './Vehicle'
 
 export interface ReservationDocument extends Document {
-    parkingSpace: ObjectId
-    customer: ObjectId
-    vehicle: ObjectId
+    parkingSpace: ParkingMapDocument['_id']
+    customer: CustomerDocument['_id']
+    vehicle: VehicleDocument['_id']
     rate: {
         ratePerHour: number,
         ratePerDay: number,

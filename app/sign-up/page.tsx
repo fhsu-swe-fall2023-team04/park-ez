@@ -37,14 +37,14 @@ export default async function SignUp() {
 		const files: File = fd.get('files') as File
 		const licensePlate = await getLicensePlate(files)
 		const make = fd.get('make')?.toString()
-		const _model = fd.get('model')?.toString()
+		const carModel = fd.get('model')?.toString()
 		const color = fd.get('color')?.toString()
 		const year = fd.get('year')?.toString()
 
 		const vehicle = {
 			licensePlate,
 			make,
-			_model,
+			carModel,
 			color,
 			year,
 		}

@@ -12,7 +12,7 @@ export const GET = async (
 	{ params }: { params: { id: ObjectId } }
 ) => {
 	
-	await startDb()
+	
 	const customer = await Customer.findById(params.id).populate({
 		path: 'reservations',
 		model:'Reservation',

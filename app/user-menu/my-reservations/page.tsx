@@ -16,9 +16,11 @@ export default async function Reservations() {
 			<p>Reservations:</p>
 			<br></br>
 			{reservations?.map((item: any) => (
+				// need to add more data from fetch
 				<div key={item._id}>
 					<p>firstName: {item.customer.firstName}</p>
-					<p>model: {item.vehicle._model}</p>
+					<p>firstName: {item.customer.lastName}</p>
+					<p>model: {item.vehicle.carModel}</p>
 					<p>per Hour: {item.rate.ratePerHour}</p>
 					<p>per Day: {item.rate.ratePerDay}</p>
 					<p>entryTIme: {item.entryTime}</p>

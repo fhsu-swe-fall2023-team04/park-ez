@@ -12,8 +12,8 @@ export const GET = async (
 	{ params }: { params: { id: ObjectId } }
 ) => {
 	
-	await startDb()
-	const customer = await Customer.findById(params.id).populate('vehicles')
+	
+	const customer = await Customer.findById(params.id).populate('vehicle')
 
 	return NextResponse.json(customer)
 }

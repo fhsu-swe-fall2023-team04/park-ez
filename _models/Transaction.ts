@@ -1,6 +1,8 @@
 // Team 3 to modify as needed
 
 import mongoose, {Document, Model, ObjectId, Schema} from 'mongoose'
+import {CustomerDocument} from './Customer'
+import {ReservationDocument} from './Reservation'
 
 enum statusEnum {
 	Unpaid = 'Unpaid',
@@ -10,8 +12,8 @@ enum statusEnum {
 
 export interface TransactionDocument extends Document {
     totalCost: number,
-    customer: ObjectId,
-    reservation: ObjectId,
+    customer: CustomerDocument['_id'],
+    reservation: ReservationDocument['_id'],
     status: statusEnum,
 }
 

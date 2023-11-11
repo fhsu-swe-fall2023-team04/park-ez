@@ -6,7 +6,7 @@ import {NextResponse} from 'next/server';
 
 // get request
 // export const GET = async (req: Request) => {
-//     await startDb()
+//     
 //     const customers = await Customer.find()
 //     return NextResponse.json(customers)
 // }
@@ -14,7 +14,7 @@ import {NextResponse} from 'next/server';
 // post request
 export const POST = async (req: Request) => {
     
-    await startDb()
+    
 
     const body = await req.json()
 

@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server';
 
 // get request
 export const GET = async (req: Request) => {
-    await startDb()
+    
     const customers = await Customer.find()
     return NextResponse.json(customers)
 }
@@ -13,7 +13,7 @@ export const GET = async (req: Request) => {
 // post request
 export const POST = async (req: Request) => {
     
-    await startDb()
+    
 
     const body = await req.json()
     const customerObj = body.customer
@@ -28,7 +28,7 @@ export const POST = async (req: Request) => {
     // update vehicles array in customer
     	await Customer.findOneAndUpdate(
 			{ _id: customer._id },
-			{ $push: { vehicles: vehicle._id } }
+			{vehicle: vehicle._id  }
 		)
 
     // return customer

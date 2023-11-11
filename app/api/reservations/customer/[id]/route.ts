@@ -10,7 +10,7 @@ export const GET = async (
 	{ params }: { params: { id: ObjectId } }
 ) => {
 	
-	await startDb()
+	
     const reservations = await Reservation.find({customer: params.id})
         .populate('parkingSpace')  // Assumes `parkingSpace` is a ref to a ParkingMapDocument
         .populate('customer')      // Assumes `customer` is a ref to a CustomerDocument

@@ -12,7 +12,11 @@ export default async function Reservation() {
 	}
 
 	const reservations = await fetch(
-		`${process.env.URL}/api/reservations/customer/${session.user._id}`
+		`${process.env.URL}/api/reservations/customer/${session.user._id}`,
+		{
+			cache: 'no-cache',
+			next: {tags: ['reservations']},
+		}
 	)
 		.then((res) =>  res.json())
 		.catch((err) => console.error(err))
@@ -50,7 +54,7 @@ console.log(reservations)
 		const exitTime = Date.now()
 		const parkingSpace = fd.get('space')?.toString()
 		const customer = user?._id
-		const vehicle = user?.vehicles[0]
+		const vehicle = user?.vehicle
 		const rate = {
 			ratePerHour: 5,
 			ratePerDay: 20,
@@ -71,6 +75,7 @@ console.log(reservations)
 		})
 			.then((res) => {
 				revalidateTag('parking-spaces')
+				revalidateTag('reservations')
 				return res.json()
 			})
 			.catch((err) => {

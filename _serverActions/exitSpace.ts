@@ -8,7 +8,7 @@ import {revalidateTag} from 'next/cache'
 
 export const exitSpace = async (id: ObjectId) => {
     try {
-            await startDb()
+            
     const reservation = await Reservation.findOneAndUpdate(
         {_id: id},
         {

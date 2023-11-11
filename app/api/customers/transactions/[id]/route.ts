@@ -11,7 +11,7 @@ export const GET = async (
 	{ params }: { params: { id: ObjectId } }
 ) => {
 	
-	await startDb()
+	
     const customer = await Customer.findById(params.id).populate('transactions')
     const transactions = customer?.transactions
     

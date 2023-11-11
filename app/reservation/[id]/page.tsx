@@ -1,19 +1,27 @@
 import TimeElapsedCounter from '@/_components/TimeElapsedCounter'
-import { ObjectId } from 'mongoose'
 import carpic from '@/_media/images/auto-blue.svg'
+import {exitSpace} from '@/_serverActions/exitSpace'
+import {occupySpace} from '@/_serverActions/occupySpace'
+import {authOptions} from '@/app/api/auth/[...nextauth]/options'
+import {ObjectId} from 'mongoose'
+import {getServerSession} from 'next-auth'
+import {getSession} from 'next-auth/react'
+import {revalidateTag} from 'next/cache'
 import Image from 'next/image'
-import { occupySpace } from '@/_serverActions/occupySpace'
-import { exitSpace } from '@/_serverActions/exitSpace'
-import startDb from '@/_utils/startDb'
-import ParkingMap from '@/_models/ParkingMap'
-import { redirect } from 'next/navigation'
-import { revalidateTag } from 'next/cache'
+import {redirect} from 'next/navigation'
 
 export default async function Message({
 	params,
 }: {
 	params: { id: ObjectId }
-}) {
+	}) {
+	
+	const session = await getServerSession(authOptions)
+	if (!session) {
+		redirect('/')
+	}
+
+	
 	const reservation = await fetch(
 		`${process.env.URL}/api/reservations/${params?.id}`,
 		{
@@ -24,7 +32,7 @@ export default async function Message({
 		.then((res) => res.json())
 		.catch((err) => console.error(err))
 
-	if (reservation.parkingSpace.status === 'Available') {
+	if (reservation?.parkingSpace.status === 'Available') {
 		redirect('/reservation')
 	}
 
@@ -35,7 +43,6 @@ export default async function Message({
 	}
 	const handleExit = async () => {
 		'use server'
-
 		exitSpace(params?.id)
 		revalidateTag('reservation')
 	}
@@ -65,7 +72,7 @@ export default async function Message({
 
 						{/* button */}
 
-						{reservation?.parkingSpace.occupied ? (
+						{reservation?.parkingSpace.occupied===true ? (
 							<form action={handleExit}>
 								<button type='submit' className='bg-red-500 p-2  rounded'>
 									<p>Leave Parking Space</p>
@@ -87,19 +94,19 @@ export default async function Message({
 							width={50}
 							height={50}
 						/>
-						<p>license plate: {reservation.vehicle.licensePlate}</p>
+						<p>license plate: {reservation?.vehicle.licensePlate}</p>
 						<div className='flex justify-between'>
-							<p>{reservation.vehicle.make}</p>
-							<p>{reservation.vehicle._model}</p>
+							<p>{reservation?.vehicle.make}</p>
+							<p>{reservation?.vehicle.carModel}</p>
 						</div>
 						<div className='flex justify-between'>
-							<p>{reservation.vehicle.color}</p>
-							<p>{reservation.vehicle.year}</p>
+							<p>{reservation?.vehicle.color}</p>
+							<p>{reservation?.vehicle.year}</p>
 						</div>
 					</div>
 				</section>
 				<footer className=' flex justify-evenly'>
-					<p>{reservation.entryTime}</p>
+					<p>{reservation?.entryTime}</p>
 					<TimeElapsedCounter targetDate='2023-01-01T00:00:00Z' />
 				</footer>
 				{/* customer */}

@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 
 // get request
 export const GET = async (req: Request) => {
-    await startDb()
+    
     const transactions = await Transaction.find()
     return NextResponse.json(transactions)
 }
@@ -12,7 +12,7 @@ export const GET = async (req: Request) => {
 // post request
 export const POST = async (req: Request) => {
     
-    await startDb()
+    
 
     const body = await req.json()
     

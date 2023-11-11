@@ -10,7 +10,7 @@ export const GET = async (
 	{ params }: { params: { id: ObjectId } }
 ) => {
 	
-	await startDb()
+	
 	const space = await ParkingMap.findById(params.id)
 
 	return NextResponse.json(space)

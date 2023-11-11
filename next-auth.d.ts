@@ -1,6 +1,7 @@
 import {DefaultSession, DefaultUser} from 'next-auth'
 import {VehicleDocument} from './_models/Vehicle'
 import {ReservationDocument} from './_models/Reservation'
+import {TransactionDocument} from './_models/Transaction'
 declare module 'next-auth' {
     interface Session{
         user: {
@@ -9,9 +10,9 @@ declare module 'next-auth' {
             name: String
             image: String,
             phone: String,
-            vehicles: [ObjectId],
-            reservations: [ObjectId],
-            transactions: [ObjectId],
+            vehicle: VehicleDocument['_id'],
+            reservations: [ReservationDocument['_id']],
+            transactions: [TransactionDocument['_id']],
             paymentMethod: string
 
         } & DefaultSession
