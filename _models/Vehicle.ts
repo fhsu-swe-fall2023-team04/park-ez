@@ -1,16 +1,12 @@
 // Team 2 to modify as needed
 
+import mongoose, {Document, Model, Schema} from 'mongoose'
 
 
-import {Document, Model, model, models, ObjectId, Schema} from 'mongoose'
-
-
-export interface VehicleDocument  {
-    _id: ObjectId
+export interface VehicleDocument extends Document {
     licensePlate: string
-    vehicleType: string
     make:string
-    model: string
+    carModel: string
     color: string
     year: string
 
@@ -19,10 +15,11 @@ export interface VehicleDocument  {
 const vehicleSchema = new Schema<VehicleDocument>({
 	licensePlate: { type: String, required: true, unique:true},
     make: {type: String, required: true},
-    model: {type: String, required: true},
+    carModel: {type: String, required: true},
     color: {type: String, required: true},
     year: {type: String, required: true}
-})
+}
+)
 
-const Vehicle = models?.Vehicle || model('Vehicle', vehicleSchema)
+const Vehicle = mongoose.models?.Vehicle || mongoose.model('Vehicle', vehicleSchema)
 export default Vehicle as Model<VehicleDocument>

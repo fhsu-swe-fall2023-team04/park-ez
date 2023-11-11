@@ -13,6 +13,7 @@ levels.forEach((level) => {
 			level: level,
 			number: number,
 			status: 'Available'
+			occupied:false
 		})
 
 	}
@@ -25,7 +26,7 @@ spaces.sort(
 	(a: { distance: number }, b: { distance: number }) => a.distance - b.distance
 )
 
-await startDb()
+
 spaces.forEach((space) => {
     await ParkingMap.create(space)
 })

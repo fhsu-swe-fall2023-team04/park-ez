@@ -10,5 +10,9 @@ export default async function Transactions() {
 		`${process.env.URL}/api/customers/transactions/${user?._id}`
     ).then(res => res.json()).catch(err => console.error(err))
 
-	return <div>Transactions</div>
+	return <div style={{ fontSize: 20 }} >
+		<br></br>
+		Transactions:
+		
+		</div>
 }

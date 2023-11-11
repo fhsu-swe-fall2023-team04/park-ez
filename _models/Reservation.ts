@@ -1,9 +1,9 @@
 // Team 2 to modify as needed
 
-import {Document, Model, model, models, Schema} from 'mongoose'
-import {VehicleDocument} from './Vehicle'
-import {CustomerDocument} from './Customer'
+import mongoose, {Document, Model, ObjectId, Schema} from 'mongoose'
 import {ParkingMapDocument} from './ParkingMap'
+import {CustomerDocument} from './Customer'
+import {VehicleDocument} from './Vehicle'
 
 export interface ReservationDocument extends Document {
     parkingSpace: ParkingMapDocument['_id']
@@ -15,6 +15,7 @@ export interface ReservationDocument extends Document {
     }
     entryTime: Date
     exitTime: Date
+    inProgress: boolean
 }
 
 const reservationSchema = new Schema<ReservationDocument>({
@@ -26,9 +27,11 @@ const reservationSchema = new Schema<ReservationDocument>({
         ratePerDay: {type: Number, required: true},
     },
     entryTime: {type: Date, default: Date.now},
-    exitTime: {type: Date,default: Date.now},
+    exitTime: {type: Date, default: Date.now},
+    inProgress: {type: Boolean, default: true}
 
-})
+},  { timestamps: true }
+)
 
-const Reservation = models?.Reservation || model('Reservation', reservationSchema)
+const Reservation = mongoose.models?.Reservation || mongoose.model('Reservation', reservationSchema)
 export default Reservation as Model<ReservationDocument>

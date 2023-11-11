@@ -1,6 +1,6 @@
 // Team 3 to modify as needed
 
-import {Document, Model, model, models, Schema} from 'mongoose'
+import mongoose, {Document, Model, ObjectId, Schema} from 'mongoose'
 import {CustomerDocument} from './Customer'
 import {ReservationDocument} from './Reservation'
 
@@ -19,11 +19,12 @@ export interface TransactionDocument extends Document {
 
 const transactionSchema = new Schema<TransactionDocument>({
     totalCost: {type: Number, required: true},
-    customer: {type: Schema.Types.ObjectId, ref: 'Customer'},
-    reservation: {type: Schema.Types.ObjectId, ref: 'Reservation'},
+    customer: {type: Schema.Types.ObjectId, ref: 'Customer', required:true},
+    reservation: {type: Schema.Types.ObjectId, ref: 'Reservation', required:true},
     status: {type: String, required: true},
 
-})
+},  { timestamps: true }
+)
 
-const Transaction = models?.Transaction || model('Transaction', transactionSchema)
+const Transaction = mongoose.models?.Transaction || mongoose.model('Transaction', transactionSchema)
 export default Transaction as Model<TransactionDocument>

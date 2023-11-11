@@ -10,11 +10,11 @@ export default function Providers({ children }: { children: ReactNode }) {
 	const [client] = useState(new QueryClient())
 
 	return (
-		<QueryClientProvider client={client}>
+		// <QueryClientProvider client={client}>
 			<SessionProvider>
 				{children}
-				<ReactQueryDevtools initialIsOpen={false} />
+				{/* <ReactQueryDevtools initialIsOpen={false} /> */}
 			</SessionProvider>
-		</QueryClientProvider>
+
 	)
 }

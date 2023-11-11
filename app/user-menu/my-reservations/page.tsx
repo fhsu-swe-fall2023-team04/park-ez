@@ -1,29 +1,32 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/options'
-import axios from 'axios'
 import { getServerSession } from 'next-auth'
-import React from 'react'
+import React from 'react' 
 
 export default async function Reservations() {
 	const session = await getServerSession(authOptions)
 	const user = session?.user
 	const reservations = await fetch(
-		`${process.env.URL}/api/customers/reservations/${user?._id}`
+		`${process.env.URL}/api/reservations/customer/${user?._id}`
 	)
 		.then((res) => res.json())
-    .catch((err) => console.error(err))
-  console.log(reservations,"reservations")
+		.catch((err) => console.error(err))
 	return (
-		<div>
-      Reservations
+		<div style={{ fontSize: 20 }}>
+			<br></br>
+			<p>Reservations:</p>
+			<br></br>
 			{reservations?.map((item: any) => (
-				<div>
-          <p>{item._id}</p>
-          <p>{item.customer}</p>
-          <p>{item.vehicle}</p>
-          <p>{item.rate.ratePerHour}</p>
-          <p>{item.rate.ratePerDay}</p>
-          <p>{item.entryTime}</p>
-          <p>{item.exitTime}</p>{' '}
+				// need to add more data from fetch
+				<div key={item._id}>
+					<p>firstName: {item.customer.firstName}</p>
+					<p>firstName: {item.customer.lastName}</p>
+					<p>model: {item.vehicle.carModel}</p>
+					<p>per Hour: {item.rate.ratePerHour}</p>
+					<p>per Day: {item.rate.ratePerDay}</p>
+					<p>entryTIme: {item.entryTime}</p>
+					<p>exitTime: {item.exitTime}</p>{' '}
+					<br></br>
+					<br></br>
 				</div>
 			))}
 		</div>

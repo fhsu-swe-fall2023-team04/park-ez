@@ -1,6 +1,7 @@
 'use server'
 
 import Customer from '@/_models/Customer'
+import Vehicle from '@/_models/Vehicle'
 
 import startDb from '@/_utils/startDb'
 import { ObjectId } from 'mongoose'
@@ -11,8 +12,8 @@ export const GET = async (
 	{ params }: { params: { id: ObjectId } }
 ) => {
 	
-	await startDb()
-	const customer = await Customer.findById(params.id)
+	
+	const customer = await Customer.findById(params.id).populate('vehicle')
 
 	return NextResponse.json(customer)
 }
