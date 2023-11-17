@@ -2,9 +2,9 @@
 import { NextAuthOptions } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import CredentialsProvider from "next-auth/providers/credentials";
-import startDb from '@/_utils/startDb';
 import Customer from '@/_models/Customer';
 import {ObjectId} from 'mongoose';
+import {startDb} from '@/_utils/startDb';
 
 
 
@@ -50,7 +50,7 @@ export const authOptions: NextAuthOptions = {
 		},
 		async session({ user,session, token }) {
 			
-
+			await startDb()
 			const sessionUser = await Customer.findOne({
 				'email': session.user?.email
 			})

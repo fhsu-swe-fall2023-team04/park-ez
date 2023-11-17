@@ -15,5 +15,3 @@ export const startDb = async () => {
 };
 
 startDb(); // Establish the connection when the file is loaded
-
-export default mongoose;

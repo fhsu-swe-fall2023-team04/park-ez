@@ -1,10 +1,10 @@
 import Transaction from '@/_models/Transaction';
-import startDb from '@/_utils/startDb';
+import {startDb} from '@/_utils/startDb';
 import { NextResponse } from 'next/server';
 
 // get request
 export const GET = async (req: Request) => {
-    
+    await startDb()
     const transactions = await Transaction.find()
     return NextResponse.json(transactions)
 }

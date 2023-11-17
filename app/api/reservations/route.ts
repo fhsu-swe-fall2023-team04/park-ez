@@ -1,7 +1,7 @@
 import Customer from '@/_models/Customer';
 import ParkingMap from '@/_models/ParkingMap';
 import Reservation from '@/_models/Reservation';
-import startDb from '@/_utils/startDb';
+import {startDb} from '@/_utils/startDb';
 import {NextResponse} from 'next/server';
 
 // get request
@@ -13,7 +13,8 @@ import {NextResponse} from 'next/server';
 
 // post request
 export const POST = async (req: Request) => {
-    
+    	await startDb()
+
     
 
     const body = await req.json()

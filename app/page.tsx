@@ -1,8 +1,10 @@
 import { getServerSession } from 'next-auth'
 import { authOptions } from './api/auth/[...nextauth]/options'
 import { redirect } from 'next/navigation'
+import {startDb} from '@/_utils/startDb'
 
 export default async function Home() {
+
 	const session = await getServerSession(authOptions)
 
 	if (session?.user.phone===undefined && session?.user) {
