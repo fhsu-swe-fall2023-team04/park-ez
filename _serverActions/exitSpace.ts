@@ -2,7 +2,7 @@
 
 import ParkingMap from '@/_models/ParkingMap'
 import Reservation from '@/_models/Reservation'
-import {startDb} from '@/_utils/startDb'
+import startDb from '@/_utils/startDb'
 import {ObjectId} from 'mongoose'
 import {revalidateTag} from 'next/cache'
 

@@ -1,7 +1,7 @@
 'use server'
 
 import Reservation from '@/_models/Reservation'
-import {startDb} from '@/_utils/startDb'
+import startDb from '@/_utils/startDb'
 import { ObjectId } from 'mongoose'
 import { NextResponse } from 'next/server'
 
@@ -10,12 +10,10 @@ export const GET = async (
 	{ params }: { params: { id: ObjectId } }
 ) => {
 		await startDb()
-
-	
     const reservation = await Reservation.findById(params.id)
-        .populate('parkingSpace')  // Assumes `parkingSpace` is a ref to a ParkingMapDocument
-        .populate('customer')      // Assumes `customer` is a ref to a CustomerDocument
-        .populate('vehicle')  
+        .populate('parkingSpace') // Assumes `parkingSpace` is a ref to a ParkingMapDocument
+        .populate('customer')     // Assumes `customer` is a ref to a CustomerDocument
+        .populate('vehicle').exec() 
 
 	return NextResponse.json(reservation)
 }

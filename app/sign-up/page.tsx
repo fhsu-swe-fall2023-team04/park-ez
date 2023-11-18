@@ -12,6 +12,7 @@ export default async function SignUp() {
 
 	const session = await getServerSession(authOptions)
 	const user = session?.user
+	console.log(user)
 
 	if (user?.phone !== undefined) {
 		redirect('/')
@@ -29,7 +30,7 @@ export default async function SignUp() {
 		// customer
 		const firstName = fd.get('firstName')?.toString()
 		const lastName = fd.get('lastName')?.toString()
-		const email = fd.get('email')?.toString()
+		const email = fd.get('email')?.toString().toLowerCase()
 		const phone = fd.get('phone')?.toString()
 		const paymentMethod = fd.get('payment')?.toString()
 		const image = user?.image as string

@@ -25,9 +25,9 @@ declare module 'next-auth' {
             lastName: String,
             image: String,
             phone: String,
-            vehicles: [ObjectId],
-            reservations: [ObjectId],
-            transactions: [ObjectId],
+            vehicle: VehicleDocument['_id'],
+            reservations: [ReservationDocument['_id']],
+            transactions: [TransactionDocument['_id']],
             paymentMethod: string
 		}
 }

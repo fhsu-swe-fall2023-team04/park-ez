@@ -4,7 +4,7 @@ import GoogleProvider from 'next-auth/providers/google'
 import CredentialsProvider from "next-auth/providers/credentials";
 import Customer from '@/_models/Customer';
 import {ObjectId} from 'mongoose';
-import {startDb} from '@/_utils/startDb';
+import startDb from '@/_utils/startDb'
 
 
 
@@ -52,16 +52,17 @@ export const authOptions: NextAuthOptions = {
 			
 			await startDb()
 			const sessionUser = await Customer.findOne({
-				'email': session.user?.email
+				'email': session.user?.email.toLowerCase()
 			})
+			console.log(sessionUser)
 
 			if (session?.user && sessionUser) {
 				session.user._id = sessionUser?._id
-				session.user.phone = sessionUser?.phone as string
-				session.user.vehicle = sessionUser?.vehicle as ObjectId
-				session.user.reservations = sessionUser?.reservations as [ObjectId]
-				session.user.transactions = sessionUser?.transactions as [ObjectId]
-				session.user.paymentMethod = sessionUser?.paymentMethod as string
+				session.user.phone = sessionUser?.phone
+				session.user.vehicle = sessionUser?.vehicle
+				session.user.reservations = sessionUser?.reservations
+				session.user.transactions = sessionUser?.transactions
+				session.user.paymentMethod = sessionUser?.paymentMethod
 
 			}
 			return session

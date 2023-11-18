@@ -1,5 +1,5 @@
 import Transaction from '@/_models/Transaction';
-import {startDb} from '@/_utils/startDb';
+import startDb from '@/_utils/startDb'
 import { NextResponse } from 'next/server';
 
 // get request

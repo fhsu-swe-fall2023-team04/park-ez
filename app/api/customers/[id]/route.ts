@@ -2,7 +2,7 @@
 
 import Customer from '@/_models/Customer'
 import Vehicle from '@/_models/Vehicle'
-import {startDb} from '@/_utils/startDb'
+import startDb from '@/_utils/startDb'
 
 import { ObjectId } from 'mongoose'
 import { NextResponse } from 'next/server'
@@ -13,7 +13,7 @@ export const GET = async (
 ) => {
 	
 	await startDb()
-	const customer = await Customer.findById(params.id).populate('vehicle')
+	const customer = await Customer.findById(params.id).populate('vehicle').exec()
 
 	return NextResponse.json(customer)
 }

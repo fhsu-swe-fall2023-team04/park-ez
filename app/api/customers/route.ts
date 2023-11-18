@@ -1,6 +1,6 @@
 import Customer from '@/_models/Customer';
 import Vehicle from '@/_models/Vehicle';
-import {startDb} from '@/_utils/startDb';
+import startDb from '@/_utils/startDb'
 import { NextResponse } from 'next/server';
 
 // get request

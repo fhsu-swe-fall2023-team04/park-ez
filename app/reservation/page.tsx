@@ -1,11 +1,10 @@
 import ParkingSpaceMap from '@/_components/ParkingSpaceMap'
-import {getServerSession} from 'next-auth'
-import {revalidateTag} from 'next/cache'
-import {redirect} from 'next/navigation'
-import {authOptions} from '../api/auth/[...nextauth]/options'
+import { getServerSession } from 'next-auth'
+import { revalidateTag } from 'next/cache'
+import { redirect } from 'next/navigation'
+import { authOptions } from '../api/auth/[...nextauth]/options'
 
 export default async function Reservation() {
-
 	const session = await getServerSession(authOptions)
 	if (!session?.user.phone) {
 		redirect('/')
@@ -15,12 +14,12 @@ export default async function Reservation() {
 		`${process.env.URL}/api/reservations/customer/${session.user._id}`,
 		{
 			cache: 'no-cache',
-			next: {tags: ['reservations']},
+			next: { tags: ['reservations'] },
 		}
 	)
-		.then((res) =>  res.json())
+		.then((res) => res.json())
 		.catch((err) => console.error(err))
-console.log(reservations)
+	console.log(reservations)
 	const inProgressReservation = reservations?.find(
 		(reservation: { inProgress: boolean }) => {
 			return reservation.inProgress === true
@@ -110,7 +109,12 @@ console.log(reservations)
 									key={index}
 									className='flex py-4 items-center justify-between  '
 								>
-									<input type='text' defaultValue={space._id} name='space' hidden />
+									<input
+										type='text'
+										defaultValue={space._id}
+										name='space'
+										hidden
+									/>
 									<div className='[&>*]:block'>
 										<big>{space.distance} ft away</big>
 										<small className=' text-slate-400'>

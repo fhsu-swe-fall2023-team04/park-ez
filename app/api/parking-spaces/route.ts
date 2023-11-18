@@ -1,5 +1,5 @@
 import ParkingMap from '@/_models/ParkingMap';
-import {startDb} from '@/_utils/startDb';
+import startDb from '@/_utils/startDb'
 import {NextResponse} from 'next/server';
 
 // get request

@@ -11,6 +11,7 @@ export default async function Settings() {
 	)
 		.then((res) => res.json())
 		.catch((err) => console.error(err))
+	const v = user?.vehicle
 
 
 	return (
@@ -30,7 +31,7 @@ export default async function Settings() {
 				<br></br>
 				<h1>Vehicle: </h1>
 				<br></br>
-				{user?.vehicle?.map((v: any) => (
+		
 					<div key={v._id}>
 						<div>Licence Plate:  {v.licensePlate}</div>
 						<div>Make:  {v.make}</div>
@@ -40,7 +41,7 @@ export default async function Settings() {
 						<br></br>
 						<br></br>
 					</div>
-				))}
+		
 			</div>
 		</div>
 	)
