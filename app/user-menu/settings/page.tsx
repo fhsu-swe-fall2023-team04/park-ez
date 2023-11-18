@@ -32,12 +32,12 @@ export default async function Settings() {
 				<h1>Vehicle: </h1>
 				<br></br>
 		
-					<div key={v._id}>
-						<div>Licence Plate:  {v.licensePlate}</div>
-						<div>Make:  {v.make}</div>
-						<div>Model:  {v.carModel}</div>
-						<div>Color:  {v.color}</div>
-						<div>Year:  {v.year}</div>
+					<div key={v?._id}>
+						<div>Licence Plate:  {v?.licensePlate}</div>
+						<div>Make:  {v?.make}</div>
+						<div>Model:  {v?.carModel}</div>
+						<div>Color:  {v?.color}</div>
+						<div>Year:  {v?.year}</div>
 						<br></br>
 						<br></br>
 					</div>

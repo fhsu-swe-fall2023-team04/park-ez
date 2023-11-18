@@ -11,31 +11,41 @@ export default async function Reservations() {
 	)
 		.then((res) => res.json())
 		.catch((err) => console.error(err))
-	
 
 	return (
-		<div style={{ fontSize: 20 }}>
+		<div className=' space-y-4' style={{ fontSize: 20 }}>
 			<br></br>
 			<p>Reservations:</p>
 			<br></br>
 			{reservations?.map((item: any) => {
 				const entry = dayjs(item.entryTime)
 				const exit = dayjs(item.exitTime)
-				const time = exit.diff(entry,'minute')
+				const seconds = exit.diff(entry, 'second')
+				const minutes = exit.diff(entry, 'minute')
+				const hours = exit.diff(entry, 'hour')
+				const days = exit.diff(entry, 'day')
 				return (
 					// need to add more data from fetch
-					<div key={item._id}>
-						<p>firstName: {item.customer.firstName}</p>
-						<p>lastName: {item.customer.lastName}</p>
-						<p>make: {item.vehicle.make}</p>
-						<p>model: {item.vehicle.carModel}</p>
-						<p>year: {item.vehicle.year}</p>
-						<p>color: {item.vehicle.color}</p>
-						{/* <p>per Hour: {item.rate.ratePerHour}</p>
-						<p>per Day: {item.rate.ratePerDay}</p>
-						<p>entryTIme: {item.entryTime}</p>
-						<p>exitTime: {item.exitTime}</p> <br></br> */}
-						<p>minutes: {time} </p>
+					<div className='text-left bg-slate-700 p-2 rounded' key={item._id}>
+						<div className='flex justify-evenly'>
+							<div>
+								<p>firstName: {item.customer.firstName}</p>
+								<p>lastName: {item.customer.lastName}</p>
+							</div>
+
+							<div>
+								{' '}
+								<p>make: {item.vehicle.make}</p>
+								<p>model: {item.vehicle.carModel}</p>
+								<p>year: {item.vehicle.year}</p>
+								<p>color: {item.vehicle.color}</p>
+							</div>
+						</div>
+						<p>
+							time: {days} days, {hours} hours, {minutes} minutes, {seconds}{' '}
+							seconds{' '}
+						</p>
+						<p>inProgress: {item.inProgress.toString()}</p>
 						<br></br>
 					</div>
 				)
