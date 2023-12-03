@@ -4,6 +4,7 @@ import { ReactNode } from 'react'
 import '../_styles/globals.css'
 import Header from '@/_components/Header'
 import Providers from '@/_utils/provider'
+import '@/_models'
 
 const inter = Inter({ subsets: ['latin'] })
 
