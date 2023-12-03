@@ -3,7 +3,7 @@
 
 import Customer from '@/_models/Customer'
 import startDb from '@/_utils/startDb'
-
+import '@/_models/Models'
 import { ObjectId } from 'mongoose'
 import { NextResponse } from 'next/server'
 

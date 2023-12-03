@@ -4,6 +4,8 @@ import Reservation from '@/_models/Reservation'
 import startDb from '@/_utils/startDb'
 import {ObjectId} from 'mongoose'
 import {revalidateTag} from 'next/cache'
+import '@/_models/Models'
+
 
 export const occupySpace = async (id: ObjectId) => {
 

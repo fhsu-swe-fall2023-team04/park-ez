@@ -1,7 +1,7 @@
 
 import Reservation from '@/_models/Reservation'
 import startDb from '@/_utils/startDb'
-
+import '@/_models/Models'
 import { ObjectId } from 'mongoose'
 import { NextResponse } from 'next/server'
 

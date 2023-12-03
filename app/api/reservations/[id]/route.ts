@@ -4,6 +4,7 @@ import Reservation from '@/_models/Reservation'
 import startDb from '@/_utils/startDb'
 import { ObjectId } from 'mongoose'
 import { NextResponse } from 'next/server'
+import '@/_models/Models'
 
 export const GET = async (
 	req: Request,
