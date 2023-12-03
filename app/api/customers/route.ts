@@ -19,6 +19,7 @@ export const POST = async (req: Request) => {
     const customerObj = body.customer
     const vehicleObj = body.vehicle
 
+    try {
     // create customer
     const customer = await Customer.create(customerObj)
 
@@ -29,8 +30,15 @@ export const POST = async (req: Request) => {
     	await Customer.findOneAndUpdate(
 			{ _id: customer._id },
 			{vehicle: vehicle._id  }
-		)
-
-    // return customer
+        )
+        
+            // return customer
     return NextResponse.json({customer:customer})
+    } catch(err) {
+        console.error(err)
+    }
+   
+  
+
+
 }

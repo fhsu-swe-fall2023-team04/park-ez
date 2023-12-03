@@ -2,9 +2,36 @@ import ParkingSpaceMap from '@/_components/ParkingSpaceMap'
 import { getServerSession } from 'next-auth'
 import { revalidateTag } from 'next/cache'
 import { redirect } from 'next/navigation'
-import { authOptions } from '../api/auth/[...nextauth]/options'
+import {authOptions} from '../api/auth/[...nextauth]/options'
+import ParkingMap from '@/_models/ParkingMap'
+
+const spaces: { distance: number; level: string; number: number , status: string}[] = []
+
+// Levels array
+const levels = ['A', 'B', 'C']
+
+let i = 1
+
+// Create 10 spaces for each level A, B, and C
+levels.forEach((level) => {
+	for (let number = 1; number <= 10; number++) {
+		spaces.push({
+			distance: number + (i*10),
+			level: level,
+			number: number,
+			status: 'Available'
+		})
+
+	}
+	i++
+})
 
 export default async function Reservation() {
+
+	spaces.forEach(async(space) => {
+		await ParkingMap.create(space)
+	})
+
 	const session = await getServerSession(authOptions)
 	if (!session?.user.phone) {
 		redirect('/')

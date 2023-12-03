@@ -23,7 +23,7 @@ export interface ParkingMapDocument extends Document {
 }
 
 const parkingMapSchema = new Schema<ParkingMapDocument>({
-    distance: {type: Number, required: true},
+    distance: {type: Number, required: true, unique: true},
     number: {type: Number, required: true},
     level: {type: String, required: true},
     status: {type: String, required: true},
@@ -31,5 +31,5 @@ const parkingMapSchema = new Schema<ParkingMapDocument>({
 
 })
 
-const ParkingMap =  mongoose.model('ParkingMap', parkingMapSchema)
+const ParkingMap = mongoose.models?.ParkingMap || mongoose.model('ParkingMap', parkingMapSchema)
 export default ParkingMap as Model<ParkingMapDocument>
