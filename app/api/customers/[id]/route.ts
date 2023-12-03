@@ -1,6 +1,6 @@
 'use server'
 
-import '@/_models/Models'
+
 import Customer from '@/_models/Customer'
 import startDb from '@/_utils/startDb'
 
