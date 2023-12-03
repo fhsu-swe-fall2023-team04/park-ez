@@ -31,5 +31,5 @@ const parkingMapSchema = new Schema<ParkingMapDocument>({
 
 })
 
-const ParkingMap = mongoose.models?.ParkingMap || mongoose.model('ParkingMap', parkingMapSchema)
+const ParkingMap =  mongoose.model('ParkingMap', parkingMapSchema)
 export default ParkingMap as Model<ParkingMapDocument>

@@ -21,5 +21,5 @@ const vehicleSchema = new Schema<VehicleDocument>({
 }
 )
 
-const Vehicle = mongoose.models?.Vehicle || mongoose.model('Vehicle', vehicleSchema)
+const Vehicle =  mongoose.model('Vehicle', vehicleSchema)
 export default Vehicle as Model<VehicleDocument>

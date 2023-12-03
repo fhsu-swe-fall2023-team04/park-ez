@@ -33,5 +33,5 @@ const reservationSchema = new Schema<ReservationDocument>({
 },  { timestamps: true }
 )
 
-const Reservation = mongoose.models?.Reservation || mongoose.model('Reservation', reservationSchema)
+const Reservation =  mongoose.model('Reservation', reservationSchema)
 export default Reservation as Model<ReservationDocument>

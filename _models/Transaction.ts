@@ -26,5 +26,5 @@ const transactionSchema = new Schema<TransactionDocument>({
 },  { timestamps: true }
 )
 
-const Transaction = mongoose.models?.Transaction || mongoose.model('Transaction', transactionSchema)
+const Transaction =  mongoose.model('Transaction', transactionSchema)
 export default Transaction as Model<TransactionDocument>
