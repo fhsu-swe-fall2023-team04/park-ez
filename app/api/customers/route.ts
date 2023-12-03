@@ -37,7 +37,8 @@ export const POST = async (req: Request) => {
     } catch(err) {
         console.error(err)
     }
-   
+       return NextResponse.json({message:"error creating customer"})
+
   
 
 

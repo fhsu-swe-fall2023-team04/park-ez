@@ -24,7 +24,7 @@ const customerSchema = new Schema<CustomerDocument>({
     email: {type: String, required: true, unique: true},
     phone: {type: String, required: true, unique: true},
     image: {type: String, required: true, unique: true},
-    vehicle: {type: Schema.Types.ObjectId,required: true, ref: 'Vehicle'},
+    vehicle: {type: Schema.Types.ObjectId, ref: 'Vehicle'},
     reservations: [{type: Schema.Types.ObjectId, ref: 'Reservation', default: []}],
     transactions: [{type: Schema.Types.ObjectId, ref: 'Transaction', default: []}],
     paymentMethod: {type: String, required: true}
