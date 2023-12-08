@@ -10,6 +10,9 @@ import {revalidateTag} from 'next/cache'
 import Image from 'next/image'
 import {redirect} from 'next/navigation'
 
+import React from 'react'
+import { Stripe } from 'stripe'
+
 export default async function Message({
 	params,
 }: {
@@ -21,7 +24,6 @@ export default async function Message({
 		redirect('/')
 	}
 
-	
 	const reservation = await fetch(
 		`${process.env.URL}/api/reservations/${params?.id}`,
 		{
@@ -38,12 +40,55 @@ export default async function Message({
 
 	const handleOccupy = async () => {
 		'use server'
-		occupySpace(params?.id)
+		occupySpace(params?.id)	
 		revalidateTag('reservation')
 	}
 	const handleExit = async () => {
 		'use server'
 		exitSpace(params?.id)
+
+		//Handle payment
+		const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+			apiVersion: '2023-10-16',
+		})
+		
+		try {
+				const stripeSession = await stripe.checkout.sessions.create({
+				payment_method_types: ['card'],
+				mode: 'payment',
+				line_items: [
+					{
+					  price: 'price_1OB2SkFIvp7od0jz75POPhAm', // The Price ID you want to use
+					  quantity: 1,
+					},
+				  ],
+				customer: session?.user.paymentMethod,
+				success_url: `${process.env.URL}/reservation`,
+				cancel_url: `${process.env.URL}/reservation/`,
+			})
+
+			//Create a transaction
+
+			const transaction = {
+				totalCost: 10,
+    			customer: session.user._id,
+   				reservation: params.id,
+    			status: "Paid"
+			}
+			await fetch(`${process.env.URL}/api/transactions`, {
+				method: 'POST',
+				body: JSON.stringify({
+					transaction: transaction
+				}),
+			})
+
+			redirect(stripeSession.url!)
+
+
+		} catch (error) {
+			throw error
+		}
+
 		revalidateTag('reservation')
 	}
 

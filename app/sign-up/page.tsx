@@ -50,7 +50,7 @@ export default async function SignUp() {
 			year,
 		}
 
-		const customer = {
+		var customer = {
 			firstName,
 			lastName,
 			email,
@@ -66,16 +66,20 @@ export default async function SignUp() {
 		}
 
 		try {
+
+			//Create a customer in strype system and get id
+			const stripeSession = await stripe.customers.create(customerData)
+
+			customer.paymentMethod = stripeSession.id
+
+			//Create a customer
 			await fetch(`${process.env.URL}/api/customers`, {
 				method: 'POST',
 				body: JSON.stringify({
 					customer: customer,
 					vehicle: vehicle,
 				}),
-			}).then()
-
-			//Create a Stripe Customer
-			await stripe.customers.create(customerData)
+			})
 
 			redirect('/sign-in')
 		} catch (error) {
@@ -237,19 +241,6 @@ export default async function SignUp() {
 									/>
 								</div>
 							</div>
-							<div>
-								<label htmlFor='payments'>Payment information</label>
-								{/* <PaymentButton /> */}
-								<input
-									type='text'
-									name='payment'
-									id='payment'
-									className='bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-									placeholder='Payment Type'
-									required
-								/>
-							</div>
-
 							{/* submit */}
 							<button
 								type='submit'

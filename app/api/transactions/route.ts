@@ -15,17 +15,16 @@ export const POST = async (req: Request) => {
     
 
     const body = await req.json()
-    
     const transactionObg = body.transaction
 
     // create transaction
     const transaction = await Transaction.create(transactionObg)
 
-    // update vehicles array in customer
+    // update vehicles array in transaction
     	await Transaction.findOneAndUpdate(
 			{ _id: transaction._id }
 		)
 
-    // return customer
-    //return NextResponse.json({customer:customer})
+    // return transaction
+    //return NextResponse.json({transaction:transaction})
 }
